@@ -4,11 +4,26 @@ class CartItem {
         this.id = id;
     }
     serialize() {
-        return this.amount.toString() + ':' + this.id.toString();
+        return this.amount.toString() + '\n' + this.id.toString();
     }
     static deSerialize(string) {
-        const struftts = string.split(':');
+        const struftts = string.split('\n');
         return new CartItem(parseInt(struftts[0]),parseInt(struftts[1]))
+    }
+}
+
+class Paper extends CartItem {
+    constructor(amount,id,color) {
+        this.amount = amount;
+        this.id = id;
+        this.color = color;
+    }
+    serialize() {
+        return this.amount.toString() + '\n' + this.id.toString() + '\n' + this.color + '\n';
+    }
+    static deSerialize(string) {
+        const struftts = string.split('\n');
+        return new CartItem(parseInt(struftts[0]),parseInt(struftts[1]),struftts[2]);
     }
 }
 
@@ -36,13 +51,6 @@ class Cart {
             localStorage.setItem(`cartItem${index}`, arr[index - cartLength].serialize());
         }
         localStorage.setItem('numItems',newLength);
-    }
-    static addItem(item) {
-        const userCartLength = Cart.length;
-        const newLength = userCartLength + arr.length;
-        for (let index = numItems; index < userCartLength; index++) {
-            localStorage.setItem(`cartItem${index}`, arr[index]);
-        }
     }
     static get items() {
         const numItems = Cart.length;
