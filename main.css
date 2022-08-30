@@ -705,6 +705,10 @@ progress {
   width: auto;
 }
 
+.bruh > * {
+  flex-direction: row !important;
+}
+
 .row-cols-1 > * {
   flex: 0 0 auto;
   width: 100%;
