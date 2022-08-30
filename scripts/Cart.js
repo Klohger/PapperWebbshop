@@ -163,5 +163,5 @@ class Cart {
     }
 }
 
-Ware.AddToWares('https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png', 'TestItem', 100, 50);
+Ware.AddToWares('paper.png', 'TestItem', 100, 50);
 Cart.init();
