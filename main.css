@@ -2582,6 +2582,10 @@ textarea.form-control-lg {
     margin-top: 5px;
 }
 
+.required {
+  color: red;
+}
+
 .card{
   margin-left: 10px;
   margin-right: 10px;
