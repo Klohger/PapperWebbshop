@@ -2574,6 +2574,7 @@ textarea.form-control-lg {
     font-weight: 300;
     text-transform: uppercase;
     letter-spacing: 0.2em;
+    margin-top: 0.6em;
 }
 
 .help-block.with-errors {
