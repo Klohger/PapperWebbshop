@@ -2570,6 +2570,22 @@ textarea.form-control-lg {
   margin-right: 1rem;
 }
 
+.btn-send {
+    font-weight: 300;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+}
+
+.help-block.with-errors {
+    color: #ff5050;
+    margin-top: 5px;
+}
+
+.card{
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
 .btn-check {
   position: absolute;
   clip: rect(0, 0, 0, 0);
