@@ -118,14 +118,19 @@ class CartItem {
 }
 
 class Cart {
+    static Num = document.getElementById('cart-num');
     static init() {
+        let sum = 0;
         for (let index = 0; index < Ware.wares.length; index++) {
             const count = localStorage.getItem(`cartWare${index}`);
             const intCount = parseInt(count);
             if (count === null || intCount === NaN || intCount < 0) {
                 localStorage.setItem(`cartWare${index}`, '0');
+            } else {
+                sum += intCount;
             }
         }
+        this.Num.innerHTML = sum.toString();
     }
     static clear() {
         for (let index = 0; index < Ware.wares.length; index++) {
@@ -137,10 +142,15 @@ class Cart {
         const WareAmount = parseInt(localStorage.getItem(`cartWare${id}`)) + 1;
         localStorage.setItem(`cartWare${id}`, WareAmount.toString());
         alert(Ware.wares[id].name + ': ' + WareAmount.toString());
+        this.Num.innerHTML = (parseInt(this.Num.innerHTML) + 1).toString();
+        
     }
     static removeWare(id) {
         const WareAmount = parseInt(localStorage.getItem(`cartWare${id}`));
-        localStorage.setItem(`cartWare${id}`, Math.max(WareAmount - 1, 0).toString());
+        if (WareAmount !== 0) {
+            localStorage.setItem(`cartWare${id}`, Math.max(WareAmount - 1).toString());
+            this.Num.innerHTML = (parseInt(this.Num.innerHTML) - 1).toString();
+        }
     }
 
     static get items() {
