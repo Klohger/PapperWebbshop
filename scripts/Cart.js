@@ -14,110 +14,234 @@ class Ware {
         this.name = name;
         this.price = price;
         this.salePrice = salePrice;
+        this.cardContainer = null;
     }
     static AddToWares(imageUrl, name, price, salePrice) {
         Ware.wares[Ware.wares.length] = new Ware(Ware.wares.length, imageUrl, name, price, salePrice);
     }
-
-    display() {
-        const cardContainer = document.createElement("div");
-        cardContainer.classList.add('col', 'mb-5');
-        {
-            const card = document.createElement("div");
-            card.classList.add('card', 'h-100');
-
+    async updateElement() {
+        
+    }
+    async createElement() {
+        const self = this;
+        return new Promise(function () {
+            self.cardContainer = document.createElement("div");
+            document.getElementById('card-container').appendChild(self.cardContainer);
+            self.cardContainer.classList.add('col', 'mb-5');
             {
-                const productImage = document.createElement("img");
-                productImage.classList.add('card-img-top');
+                const card = document.createElement("div");
+                card.classList.add('card', 'h-100');
 
-                productImage.src = this.imageUrl;
-                productImage.alt = "...";
-                card.appendChild(productImage);
-            }
-            {
-                const productDetails = document.createElement("div");
-                productDetails.classList.add('card-body', 'p-4');
                 {
-                    const textCenter = document.createElement('div');
-                    textCenter.classList.add('text-center');
-                    {
-                        const productName = document.createElement("h5");
-                        productName.classList.add('fw-bolder');
-                        productName.appendChild(document.createTextNode(this.name));
+                    const productImage = document.createElement("img");
+                    productImage.classList.add('card-img-top');
 
-                        textCenter.appendChild(productName);
-                    }
+                    productImage.src = self.imageUrl;
+                    productImage.alt = "...";
+                    card.appendChild(productImage);
+                }
+                {
+                    const productDetails = document.createElement("div");
+                    productDetails.classList.add('card-body', 'p-4');
                     {
-                        const productPrice = document.createElement('div');
-                        if (this.salePrice < this.price) {
-                            {
+                        const textCenter = document.createElement('div');
+                        textCenter.classList.add('text-center');
+                        {
+                            const productName = document.createElement("h5");
+                            productName.classList.add('fw-bolder');
+                            productName.appendChild(document.createTextNode(self.name));
+
+                            textCenter.appendChild(productName);
+                        }
+                        {
+                            const productPrice = document.createElement('div');
+                            if (self.salePrice < self.price) {
+                                {
+                                    const price = document.createElement('span');
+                                    price.classList.add('text-muted', 'text-decoration-line-through');
+                                    price.appendChild(document.createTextNode(Ware.formatter.format(self.price)));
+
+                                    productPrice.appendChild(price);
+                                }
+                                {
+                                    const salePrice = document.createElement('span');
+                                    salePrice.appendChild(document.createTextNode(' ' + Ware.formatter.format(self.salePrice) + ' '));
+
+                                    productPrice.appendChild(salePrice);
+                                }
+                            } else {
                                 const price = document.createElement('span');
-                                price.classList.add('text-muted', 'text-decoration-line-through');
-                                price.appendChild(document.createTextNode(Ware.formatter.format(this.price)));
-                                
+
+                                price.appendChild(document.createTextNode(' ' + Ware.formatter.format(self.price) + ' '));
+
                                 productPrice.appendChild(price);
                             }
-                            {
-                                const salePrice = document.createElement('span');
-                                salePrice.appendChild(document.createTextNode(' ' + Ware.formatter.format(this.salePrice) + ' '));
-
-                                productPrice.appendChild(salePrice);
-                            }
-                        } else {
-                            const price = document.createElement('span');
-
-                            price.appendChild(document.createTextNode(' ' + Ware.formatter.format(this.price) + ' '));
-
-                            productPrice.appendChild(price);
+                            textCenter.appendChild(productPrice);
                         }
-                        textCenter.appendChild(productPrice);
+                        productDetails.appendChild(textCenter);
                     }
-                    productDetails.appendChild(textCenter);
+                    card.appendChild(productDetails);
                 }
-                card.appendChild(productDetails);
-            }
-            {
-                const productActions = document.createElement("div");
-                productActions.classList.add('card-footer', 'p-4', 'pt-0', 'border-top-0', 'bg-transparent');
                 {
-                    const textCenter = document.createElement('div');
-                    textCenter.classList.add('text-center');
+                    const productActions = document.createElement("div");
+                    productActions.classList.add('card-footer', 'p-4', 'pt-0', 'border-top-0', 'bg-transparent');
                     {
-                        const button = document.createElement('a');
-                        button.classList.add('btn', 'btn-outline-dark', 'mt-auto');
-                        button.appendChild(document.createTextNode('Add to cart'));
-                        button.onclick = () => Cart.addWare(this.id);
-                        textCenter.appendChild(button);
+                        const textCenter = document.createElement('div');
+                        textCenter.classList.add('text-center');
+                        {
+                            const button = document.createElement('a');
+                            button.classList.add('btn', 'btn-outline-dark', 'mt-auto');
+                            button.appendChild(document.createTextNode('Add to cart'));
+                            button.onclick = () => Cart.addWare(self.id);
+                            textCenter.appendChild(button);
+                        }
+                        productActions.appendChild(textCenter);
                     }
-                    productActions.appendChild(textCenter);
+                    card.appendChild(productActions);
                 }
-                card.appendChild(productActions);
+                self.cardContainer.appendChild(card);
             }
-            cardContainer.appendChild(card);
-        }
-        document.getElementById('card-container').appendChild(cardContainer);
-    }
-    displayInCart() {
+            
 
+        });
     }
-    static displayAll() {
+    static createElements() {
+        const createElementThreads = [];
         for (let index = 0; index < Ware.wares.length; index++) {
-            Ware.wares[index].display();
+            createElementThreads.push(Ware.wares[index].createElement());
         }
+        for (let index = 0; index < createElementThreads.length; index++) {
+            Promise.race(createElementThreads);
+        }
+
     }
 }
 
-
 class CartItem {
     ware;
-    amount = 1;
+    _amount = 1;
     constructor(id, amount) {
         this.ware = Ware.wares[id];
-        this.amount = amount;
+        this._amount = amount;
+        this.cartCard = null;
+    }
+    
+    cartCard = null;
+    async updateElement() {
+
+    }
+    set amount(value) {
+        console.error("BRUH");
+    }
+    async createElement() {
+        /*
+        <div style="border: 1px solid rgba(0,0,0,0.125);flex-direction: row;display: flex;width: fit-content;flex: inherit; flex-wrap: nowrap;align-items: center; margin-bottom: 1rem !important">
+            <img class="cart-img" src="paper.png" alt="...">
+            <div style="padding: 1rem !important" class="card-body p-4">
+                <div style="padding: 1rem !important"  class="card-body p-4">
+                    <div class="text-center" style="display: flex;">
+                        <h5 class="fw-bolder">TestItem</h5>
+                        <div><span class="text-muted text-decoration-line-through">$100.00</span><span> $50.00 </span></div>
+                    </div>
+                </div>
+                <div style="padding: 1rem !important" class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                    <div class="text-center" style="display:flex; justify-content: center; align-items: center; flex-wrap: nowrap;">
+                        <a class="btn btn-outline-dark mt-auto cart-btn">-</a>
+                        <a class="btn btn-outline-dark cart-num">5000</a>
+                        <a class="btn btn-outline-dark mt-auto cart-btn">+</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        */
+        const self = this;
+        
+        return new Promise(() => {
+            self.cartCard = document.createElement("div");
+            self.cartCard.style.border = "1px solid rgba(0,0,0,0.125)";
+            self.cartCard.style.flexDirection = 'row';
+            self.cartCard.style.display = 'flex';
+            self.cartCard.style.width = 'fit-content';
+            self.cartCard.style.flex = 'inherit';
+            self.cartCard.style.flexWrap = 'nowrap';
+            self.cartCard.style.alignItems = 'center';
+            self.cartCard.style.marginBottom = '1rem !important';
+            {
+                const image = document.createElement("img");
+                image.classList.add('cart-img');
+                image.src = self.ware.imageUrl; // IMAGE
+                image.alt = '...';
+                {
+
+                }
+                self.cartCard.appendChild(image);
+            }
+            {
+                const cartBody = document.createElement('div');
+                cartBody.classList.add('card-body', 'p-4');
+                cartBody.style.padding = "1rem !important";
+                {
+                    const cartBody2 = document.createElement('div');
+                    cartBody2.classList.add('card-body', 'p-4');
+                    cartBody2.style.padding = "1rem !important";
+                    {
+                        const textCenter = document.createElement('div');
+                        textCenter.classList.add('text-center');
+                        textCenter.style.display = 'flex';
+                        {
+                            const name = document.createElement('h5');
+                            name.classList.add('fw-bolder');
+                            {
+                                name.appendChild(document.createTextNode(self.ware.name)); // NAME
+                            }
+                            textCenter.appendChild(name);
+                        }
+                        {
+                            const div = document.createElement('div');
+                            {
+                                if (self.ware.salePrice < self.ware.price) {
+                                    {
+                                        const price = document.createElement('span');
+                                        price.classList.add('text-muted', 'text-decoration-line-through');
+                                        {
+                                            price.appendChild(document.createTextNode(Ware.formatter.format(self.ware.price))); // price
+                                        }
+                                        div.appendChild(price);
+                                    }
+                                    {
+                                        const salePrice = document.createElement('span');
+                                        {
+                                            salePrice.appendChild(document.createTextNode(' ' + Ware.formatter.format(self.ware.salePrice) + ' ')); // sale price
+                                        }
+                                        div.appendChild(salePrice);
+                                    }
+                                } else {
+                                    const price = document.createElement('span');
+                                    {
+                                        price.appendChild(document.createTextNode(' ' + Ware.formatter.format(self.ware.price) + ' ')); // price
+                                    }
+                                    div.appendChild(price);
+                                }
+                            }
+                            textCenter.appendChild(div);
+                        }
+                        cartBody2.appendChild(textCenter);
+                    }
+                    {
+                        const cardFooter = document.createElement('div');
+                    }
+                    cartBody.appendChild(cartBody2);
+                }
+                self.cartCard.appendChild(cartBody);
+            }
+            document.getElementById('cart-container').appendChild(self.cartCard);
+        });
+        
     }
 }
 
 class Cart {
+    static cart = Cart.items;
     static Num = document.getElementById('cart-num');
     static init() {
         let sum = 0;
@@ -130,7 +254,7 @@ class Cart {
                 sum += intCount;
             }
         }
-        this.Num.innerHTML = sum.toString();
+        Cart.Num.innerHTML = sum.toString();
     }
     static clear() {
         for (let index = 0; index < Ware.wares.length; index++) {
@@ -143,13 +267,19 @@ class Cart {
         localStorage.setItem(`cartWare${id}`, WareAmount.toString());
         alert(Ware.wares[id].name + ': ' + WareAmount.toString());
         this.Num.innerHTML = (parseInt(this.Num.innerHTML) + 1).toString();
-        
+        if(Cart.cart != null) {
+            Cart.cart[id].amount++;
+        }
+
     }
     static removeWare(id) {
         const WareAmount = parseInt(localStorage.getItem(`cartWare${id}`));
         if (WareAmount !== 0) {
             localStorage.setItem(`cartWare${id}`, Math.max(WareAmount - 1).toString());
             this.Num.innerHTML = (parseInt(this.Num.innerHTML) - 1).toString();
+            if(Cart.cart != null) {
+                Cart.cart[id].amount--;
+            }
         }
     }
 
@@ -157,11 +287,24 @@ class Cart {
         const userCart = [];
 
         for (let index = 0; index < Ware.wares.length; index++) {
-            userCart.push(new CartItem(index, parseInt(localStorage.getItem(`cartWare${index}`))));
+            const item = new CartItem(index, parseInt(localStorage.getItem(`cartWare${index}`)));
+            if(item._amount != 0) {
+                userCart.push(item);
+            }
         }
         return userCart;
     }
+    static createElements() {
+        Cart.cart = Cart.items;
+        const createElementThreads = [];
+        for (let index = 0; index < Cart.cart.length; index++) {
+            createElementThreads.push(Cart.cart[index].createElement());
+        }
+        for (let index = 0; index < createElementThreads.length; index++) {
+            Promise.race(createElementThreads);
+        }
+    }
 }
+Ware.AddToWares('paper.png', 'Test Item', 1000000, 0.01);
 
-Ware.AddToWares('paper.png', 'TestItem', 100, 50);
 Cart.init();
