@@ -165,7 +165,7 @@ class CartItem {
             self.cartCard.style.flex = 'inherit';
             self.cartCard.style.flexWrap = 'nowrap';
             self.cartCard.style.alignItems = 'center';
-            self.cartCard.style.marginBottom = '1rem !important';
+            self.cartCard.style.marginBottom = '1rem';
             {
                 const image = document.createElement("img");
                 image.classList.add('cart-img');
@@ -204,21 +204,21 @@ class CartItem {
                                         const price = document.createElement('span');
                                         price.classList.add('text-muted', 'text-decoration-line-through');
                                         {
-                                            price.appendChild(document.createTextNode(Ware.formatter.format(self.ware.price))); // price
+                                            price.appendChild(document.createTextNode(Ware.formatter.format(self.ware.price * self._amount))); // price
                                         }
                                         div.appendChild(price);
                                     }
                                     {
                                         const salePrice = document.createElement('span');
                                         {
-                                            salePrice.appendChild(document.createTextNode(' ' + Ware.formatter.format(self.ware.salePrice) + ' ')); // sale price
+                                            salePrice.appendChild(document.createTextNode(' ' + Ware.formatter.format(self.ware.salePrice * self._amount) + ' ')); // sale price
                                         }
                                         div.appendChild(salePrice);
                                     }
                                 } else {
                                     const price = document.createElement('span');
                                     {
-                                        price.appendChild(document.createTextNode(' ' + Ware.formatter.format(self.ware.price) + ' ')); // price
+                                        price.appendChild(document.createTextNode(' ' + Ware.formatter.format(self.ware.price * self._amount) + ' ')); // price
                                     }
                                     div.appendChild(price);
                                 }
@@ -227,10 +227,75 @@ class CartItem {
                         }
                         cartBody2.appendChild(textCenter);
                     }
-                    {
-                        const cardFooter = document.createElement('div');
-                    }
+                    
                     cartBody.appendChild(cartBody2);
+                }
+                {
+                    const cardFooter = document.createElement('div');
+                    cardFooter.classList.add("card-footer", "p-4", "pt-0", "border-top-0", "bg-transparent");
+                    cardFooter.style.padding = '1rem';
+                    {
+                        const textCenter = document.createElement('div');
+                        textCenter.classList.add('text-center');
+                        textCenter.style.display = "flex";
+                        textCenter.style.justifyContent = 'center';
+                        textCenter.style.alignItems = 'center';
+                        textCenter.style.flexWrap = 'nowrap';
+                        {
+                            const minusButton = document.createElement('a');
+                            minusButton.classList.add('btn','btn-outline-dark','mt-auto','cart-btn');
+                            minusButton.onclick = () => { 
+                                Cart.removeWare(self.ware.id);
+                                
+                                if(self._amount === 1) {
+                                    document.getElementById('cart-container').removeChild(self.cartCard);
+                                } else {
+                                    self._amount--;
+                                }
+                                if (self.ware.salePrice < self.ware.price) {
+                                    self.cartCard.children[1].children[0].children[0].children[1].children[0].innerHTML = Ware.formatter.format(self.ware.price * self._amount);
+                                    self.cartCard.children[1].children[0].children[0].children[1].children[1].innerHTML = ' ' + Ware.formatter.format(self.ware.salePrice * self._amount) + ' ';
+                                } else {
+                                    self.cartCard.children[1].children[0].children[0].children[1].children[0].innerHTML = ' ' + Ware.formatter.format(self.ware.price * self._amount) + ' ';
+                                }
+                                self.cartCard.children[1].children[1].children[0].children[1].innerHTML = self._amount.toString();
+                            }
+                            {
+                                minusButton.appendChild(document.createTextNode('-'))
+                            }
+                            textCenter.appendChild(minusButton);
+                        }
+                        {
+                            const cartNum = document.createElement('a');
+                            cartNum.classList.add('btn','btn-outline-dark', 'cart-num');
+                            {
+                                cartNum.appendChild(document.createTextNode(self._amount.toString()));
+                            }
+                            textCenter.appendChild(cartNum);
+                        }
+                        {
+                            const plusButton = document.createElement('a');
+                            plusButton.classList.add('btn','btn-outline-dark','mt-auto','cart-btn');
+                            plusButton.onclick = () => { 
+                                Cart.addWare(self.ware.id);
+                                self._amount++;
+
+                                if (self.ware.salePrice < self.ware.price) {
+                                    self.cartCard.children[1].children[0].children[0].children[1].children[0].innerHTML = Ware.formatter.format(self.ware.price * self._amount);
+                                    self.cartCard.children[1].children[0].children[0].children[1].children[1].innerHTML = ' ' + Ware.formatter.format(self.ware.salePrice * self._amount) + ' ';
+                                } else {
+                                    self.cartCard.children[1].children[0].children[0].children[1].children[0].innerHTML = ' ' + Ware.formatter.format(self.ware.price * self._amount) + ' ';
+                                }
+                                self.cartCard.children[1].children[1].children[0].children[1].innerHTML = self._amount.toString();
+                            }
+                            {
+                                plusButton.appendChild(document.createTextNode('+'))
+                            }
+                            textCenter.appendChild(plusButton);
+                        }
+                        cardFooter.appendChild(textCenter);
+                    }
+                    cartBody.appendChild(cardFooter);
                 }
                 self.cartCard.appendChild(cartBody);
             }
@@ -241,6 +306,13 @@ class CartItem {
 }
 
 class Cart {
+    static CalculateSum() {
+        let sum = 0;
+        for (let index = 0; index < Ware.wares.length; index++) {
+            sum += parseInt(localStorage.getItem(`cartWare${index}`));
+        }
+        Cart.Num.innerHTML = sum.toString();
+    }
     static cart = Cart.items;
     static Num = document.getElementById('cart-num');
     static init() {
@@ -265,11 +337,8 @@ class Cart {
         
         const WareAmount = parseInt(localStorage.getItem(`cartWare${id}`)) + 1;
         localStorage.setItem(`cartWare${id}`, WareAmount.toString());
-        alert(Ware.wares[id].name + ': ' + WareAmount.toString());
+        //alert(Ware.wares[id].name + ': ' + WareAmount.toString());
         this.Num.innerHTML = (parseInt(this.Num.innerHTML) + 1).toString();
-        if(Cart.cart != null) {
-            Cart.cart[id].amount++;
-        }
 
     }
     static removeWare(id) {
@@ -277,9 +346,6 @@ class Cart {
         if (WareAmount !== 0) {
             localStorage.setItem(`cartWare${id}`, Math.max(WareAmount - 1).toString());
             this.Num.innerHTML = (parseInt(this.Num.innerHTML) - 1).toString();
-            if(Cart.cart != null) {
-                Cart.cart[id].amount--;
-            }
         }
     }
 
@@ -304,7 +370,21 @@ class Cart {
             Promise.race(createElementThreads);
         }
     }
+    static updateElements(id) {
+        console.error("FUCK");
+    }
 }
-Ware.AddToWares('paper.png', 'Test Item', 1000000, 0.01);
+Ware.AddToWares('paper.png', 'A0', 1000000, 1);
+Ware.AddToWares('paper.png', 'A1', 1000000, 0.01);
+Ware.AddToWares('paper.png', 'A2', 1000000, 0.01);
+Ware.AddToWares('paper.png', 'A3', 1000000, 0.01);
+Ware.AddToWares('paper.png', 'A4', 1000000, 0.01);
+Ware.AddToWares('paper.png', 'A5', 1000000, 0.01);
+Ware.AddToWares('paper.png', 'A6', 1000000, 0.01);
+Ware.AddToWares('paper.png', 'A7', 1000000, 0.01);
+Ware.AddToWares('paper.png', 'A8', 1000000, 0.01);
+Ware.AddToWares('paper.png', 'A9', 1000000, 0.01);
+Ware.AddToWares('paper.png', 'A10', 1000000, 0.01);
+Ware.AddToWares('paper.png', 'A11', 1000000, 1.01);
 
 Cart.init();
