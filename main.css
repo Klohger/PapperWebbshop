@@ -829,6 +829,10 @@ progress {
   width: auto;
 }
 
+.bruh > * {
+  flex-direction: row !important;
+}
+
 .row-cols-1 > * {
   flex: 0 0 auto;
   width: 100%;
@@ -4764,22 +4768,38 @@ textarea.form-control-lg {
 
 .card-img,
 .card-img-top,
-.card-img-bottom {
+.card-img-bottom,
+.cart-img {
   width: 100%;
 }
 
+
 .card-img,
-.card-img-top {
+.card-img-top,
+.cart-img {
   border-top-left-radius: calc(0.25rem - 1px);
   border-top-right-radius: calc(0.25rem - 1px);
 }
 
 .card-img,
-.card-img-bottom {
+.card-img-bottom,
+.cart-img {
   border-bottom-right-radius: calc(0.25rem - 1px);
   border-bottom-left-radius: calc(0.25rem - 1px);
 }
 
+.cart-img {
+  padding: 1rem;
+}
+
+.cart-btn,
+.cart-num {
+  border-radius: 100vmax;
+  margin: 0 0.25rem;
+}
+.cart-btn {
+  width: 38px;
+}
 .card-group > .card {
   margin-bottom: 0.75rem;
 }
