@@ -434,17 +434,20 @@ input[type=text]
   border-radius: 3px;
 }
 
-.back-to-home-btn
+.back-to-home-btn-container
 {
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  border: none;
-  background: none;
 }
 
-
+.back-to-home-btn
+{
+  border: none;
+  background-color: white;
+  color: grey;
+}
 
 input,
 button,
