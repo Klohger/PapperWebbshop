@@ -16,20 +16,20 @@
     <body>
         <div class="content">
             <!-- Navigation-->
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-navbar">
                 <div class="container px-4 px-lg-5">
                     <h1 class="navbar-brand">PaperBoys</h1>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                            <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-                            <li class="nav-item"><a class="nav-link" href="about.html">About us</a></li>
-                            <li class="nav-item"><a class="nav-link active" aria-current="page" href="contact.html">Contact</a></li>
+                            <li class="nav-item nav-hover"><a class="nav-link" href="index.html" style="color: black;">Shop</a></li>
+                            <li class="nav-item nav-hover"><a class="nav-link" href="about.html"  style="color: black;">Om oss</a></li>
+                            <li class="nav-item nav-hover"><a class="nav-link active-link" aria-current="page" href="contact.html" style="color: black;">Kontakt</a></li>
                         </ul>
                         <form class="d-flex">
                             <button class="btn btn-outline-dark" type="submit" formaction="Cart.html">
                                 <i class="bi-cart-fill me-1"></i>
-                                Cart
+                                Kundvagn
                                 <span id='cart-num' class="badge bg-dark text-white ms-1 rounded-pill">0</span>
                             </button>
                         </form>
@@ -37,11 +37,11 @@
                 </div>
             </nav>
             <!-- Header-->
-            <header class="bg-dark py-5">
+            <header class="bg-dark py-5 header">
                 <div class="container px-4 px-lg-5 my-5">
                     <div class="text-center text-white">
                         <h1 class="display-4 fw-bolder">PaperBoys</h1>
-                        <p class="lead fw-normal text-white-50 mb-0">Contact us down below</p>
+                        <p class="lead fw-normal text-white-50 mb-0">Kontakta oss här nedan</p>
                     </div>
                 </div>
             </header>
@@ -51,7 +51,7 @@
                 <div class="container px-4 px-lg-5 mt-5">
                     <div class="row ">
                         <div class="col-lg-9 mx-auto">
-                            <h3>Contact</h3>
+                            <h3>Kontakt</h3>
                             <div class="mt-2 mx-auto p-4">
                                 <div class = "container">
                                     <form id="contact-form" role="form" action="mailto:anna.svenssonx@elev.ga.ntig.se?subject=Contact to PaperBoys" method="post" enctype="text/plain">
@@ -59,26 +59,26 @@
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label for="form_name">Firstname <span class="required">*</span></label>
-                                                        <input id="form_name" type="text" name="name" class="form-control" placeholder="Please enter your firstname *" required="required" data-error="Firstname is required.">
+                                                        <label for="form_name">Förnamn <span class="required">*</span></label>
+                                                        <input id="form_name" type="text" name="name" class="form-control" placeholder="Snälla skriv in ditt förnamn" required="required" data-error="Firstname is required.">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label for="form_lastname">Lastname <span class="required">*</span></label>
-                                                        <input id="form_lastname" type="text" name="surname" class="form-control" placeholder="Please enter your lastname *" required="required" data-error="Lastname is required.">
+                                                        <label for="form_lastname">Efternamn <span class="required">*</span></label>
+                                                        <input id="form_lastname" type="text" name="surname" class="form-control" placeholder="Snälla skriv in ditt efternamn." required="required" data-error="Lastname is required.">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="form-group">
-                                                        <label for="form_message">Message <span class="required">*</span></label>
-                                                        <textarea id="form_message" name="message" class="form-control" placeholder="Write your message here." rows="4" required="required" data-error="Please, leave us a message."></textarea>
+                                                        <label for="form_message">Meddelande <span class="required">*</span></label>
+                                                        <textarea id="form_message" name="message" class="form-control" placeholder="Skriv här." rows="4" required="required" data-error="Please, leave us a message."></textarea>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-12">
-                                                    <input type="submit" class="btn btn-success btn-send  pt-2 btn-block" value="Send Message">
+                                                    <input type="submit" class="btn btn-success btn-send  pt-2 btn-block" value="Skicka">
                                                 </div>
                                             </div>
                                         </div>
