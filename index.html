@@ -40,8 +40,8 @@
                             Kundvagn
                             <span id='cart-num' class="badge bg-dark text-white ms-1 rounded-pill">0</span>
                         </button>
-                        <span style="color: rgb(24, 24, 24);outline: none;box-sizing: border-box;display: block;position: absolute;z-index: 91;bottom: 0rem;transform: translateX(-0%) translateY(100%);/* left: 85%; */">
-                            <button color="white" style="
+                        <span hidden id="popup" style="color: rgb(24, 24, 24);outline: none;box-sizing: border-box;display: block;position: absolute;z-index: 91;bottom: 0rem;transform: translateX(-0%) translateY(100%);/* left: 85%; */">
+                            <button type="button" color="white" style="
                             margin: 0em;
                             text-transform: none;
                             text-indent: 0px;
@@ -101,7 +101,7 @@
                                     text-indent: 0px;
                                     text-shadow: none;
                                     text-align: center;">
-                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="12px" height="12px" viewBox="0 0 12 12" version="1.1" data-src="https://www.willys.se/icons/CLOSE-12px.svg" style="
+                                        <svg width="12px" height="12px" viewBox="0 0 12 12" style="
                                         width: auto;
                                         height: auto;
                                         outline: none;
@@ -119,6 +119,7 @@
                                         text-indent: 0px;
                                         text-shadow: none;
                                         text-align: center;">
+                                        
                                             <!-- Generator: Sketch 62 (91390) - https://sketch.com -->
 
                                             <g id="CLOSE-12px" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" style="
@@ -236,6 +237,9 @@
     <script src="scripts/Cart.js"></script>
     <script>
         Ware.createElements();
+        document.getElementById('popup').children[0].onclick = () => {
+            document.getElementById('popup').hidden = true;
+        };
     </script>
 </body>
 
