@@ -434,21 +434,6 @@ input[type=text]
   border-radius: 3px;
 }
 
-.back-to-home-btn-container
-{
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.back-to-home-btn
-{
-  border: none;
-  background-color: white;
-  color: grey;
-}
-
 input,
 button,
 select,
@@ -603,6 +588,18 @@ progress {
 .cart-button {
   margin-left: auto;
   align-items: flex-end;
+  padding: 10px;
+  border-radius: 25px;
+}
+
+.checkedout-btn-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.checkedout-btn {
   padding: 10px;
   border-radius: 25px;
 }
