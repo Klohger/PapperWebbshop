@@ -312,8 +312,7 @@ class CartItem {
         return new Promise(() => {
             const pee = document.createElement('p');
             {
-                const name = document.createElement('a');
-                name.href = '#';
+                const name = document.createElement('span');
                 {
                     name.innerHTML = self.ware.name;
                 }
@@ -350,7 +349,6 @@ class Cart {
         for (let index = 0; index < Cart.items.length; index++) {
             
             const bruh = Cart.items[index];
-            console.log(bruh);
             if(bruh.ware.salePrice < bruh.ware.price) {
                 sum += bruh.ware.salePrice * bruh.amount;
             } else {
