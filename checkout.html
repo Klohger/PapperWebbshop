@@ -32,6 +32,19 @@
                         <div class="col-lg-9 mx-auto">
                             <h3>Checka ut</h3> 
                             <div class="row">
+                                <div class="col-25">
+                                    <div class="checkout-container">
+                                        <h4>Kundvagn
+                                        <span class="price" style="color:black">
+                                        <i class="fa fa-shopping-cart"></i>
+                                        </span>
+                                        </h4>
+                                        <div id="checkout-container">
+                                        </div>
+                                        <hr>
+                                        <p>Total <span class="price" style="color:black"><b id="money">$30</b></span></p>
+                                    </div>
+                                </div>
                                 <div class="col-75">
                                     <div class="checkout-container">
                                         <form action="checkedout.html" method="get">
@@ -94,22 +107,6 @@
                                         </form>
                                     </div>
                                 </div>
-
-                                <div class="col-25">
-                                    <div class="checkout-container">
-                                        <h4>Kundvagn
-                                        <span class="price" style="color:black">
-                                        <i class="fa fa-shopping-cart"></i>
-                                        </span>
-                                        </h4>
-                                        <p><a href="#">Paper</a> <span class="price">$15</span></p>
-                                        <p><a href="#">Pen</a> <span class="price">$5</span></p>
-                                        <p><a href="#">Eraser</a> <span class="price">$8</span></p>
-                                        <p><a href="#">Ruler</a> <span class="price">$2</span></p>
-                                        <hr>
-                                        <p>Total <span class="price" style="color:black"><b>$30</b></span></p>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -128,5 +125,8 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <!-- Core theme JS-->
         <script src="scripts/Cart.js"></script>
+        <script>
+            Cart.createCheckoutElements();
+        </script>
     </body>
 </html>
