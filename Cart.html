@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -13,18 +14,25 @@
 	<!-- Core theme CSS (includes Bootstrap)-->
 	<link href="main.css" rel="stylesheet" />
 </head>
+
 <body>
 	<div class="content">
 		<!-- Navigation-->
 		<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-navbar">
 			<div class="container px-4 px-lg-5">
 				<h1 class="navbar-brand">PaperBoys</h1>
-				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+					data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+					aria-expanded="false" aria-label="Toggle navigation"><span
+						class="navbar-toggler-icon"></span></button>
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-						<li class="nav-item nav-hover"><a class="nav-link" href="index.html" style="color: black;">Shop</a></li>
-						<li class="nav-item nav-hover"><a class="nav-link" href="about.html" style="color: black;">Om oss</a></li>
-						<li class="nav-item nav-hover"><a class="nav-link" href="contact.html" style="color: black;">Kontakt</a></li>
+						<li class="nav-item nav-hover"><a class="nav-link" href="index.html"
+								style="color: black;">Shop</a></li>
+						<li class="nav-item nav-hover"><a class="nav-link" href="about.html" style="color: black;">Om
+								oss</a></li>
+						<li class="nav-item nav-hover"><a class="nav-link" href="contact.html"
+								style="color: black;">Kontakt</a></li>
 					</ul>
 					<form class="d-flex">
 						<button class="btn btn-outline-dark active" type="submit" formaction="Cart.html">
@@ -51,43 +59,44 @@
 				<h3>Din kundvagn</h3>
 
 				<div class="cart-button-container">
-					<button class="cart-button keep-shopping text-white" onclick="location.href='index.html'" type="button">Fortsätt handla ></button>
+					<button class="cart-button keep-shopping text-white" onclick="location.href='index.html'"
+						type="button">Fortsätt handla ></button>
 				</div>
-				
+
 				<!-- Checkout content HERE -->
 
-				<div id="cart-container" style="flex-wrap:nowrap; flex-direction:column; align-items:center; padding: 1rem;" class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-					
+				<div id="cart-container"
+					style="flex-wrap:nowrap; flex-direction:column; align-items:center; padding: 1rem;"
+					class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+
 				</div>
-				<div style="border: 1px solid rgba(0,0,0,0.125);flex-direction: row;display: flex;width: fit-content;flex: inherit; flex-wrap: nowrap;align-items: center; margin-bottom: 1rem !important">
-					<img class="cart-img" src="paper.png" alt="...">
-					<div style="padding: 1rem !important" class="card-body p-4">
-						<div style="padding: 1rem !important"  class="card-body p-4">
+				<div
+					style="margin: auto; border: 1px solid rgba(0, 0, 0, 0.125); flex-flow: row nowrap; display: flex; width: 50%; flex: inherit; align-items: center; margin-bottom: 1rem;">
+					
+					<div class="card-body p-4">
+						<div class="card-body p-4">
 							<div class="text-center" style="display: flex;">
-								<h5 class="fw-bolder">TestItem</h5>
-								<div><span class="text-muted text-decoration-line-through">$100.00</span><span> $50.00 </span></div>
-							</div>
-						</div>
-						<div style="padding: 1rem !important" class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-							<div class="text-center" style="display:flex; justify-content: center; align-items: center; flex-wrap: nowrap;">
-								<a class="btn btn-outline-dark mt-auto cart-btn">-</a>
-								<a class="btn btn-outline-dark cart-num">5000</a>
-								<a class="btn btn-outline-dark mt-auto cart-btn">+</a>
+								<h5 class="fw-bolder">Total</h5>
+								<span style="margin-right: 0px;
+								margin-left: auto;" id="money">0</span>
 							</div>
 						</div>
 					</div>
 				</div>
 
 				<div class="cart-button-container">
-					<button class="cart-button check-out btn-success" onclick="location.href='checkout.html'" type="button">Checka ut ></button>
+					<button class="cart-button check-out btn-success" onclick="location.href='checkout.html'"
+						type="button">Checka ut ></button>
 				</div>
 			</div>
-				
+
 		</section>
 	</div>
 	<!-- Footer-->
 	<footer class="py-5 bg-dark">
-		<div class="container"><p class="m-0 text-center text-white">Copyright &copy; PaperBoys 2022</p></div>
+		<div class="container">
+			<p class="m-0 text-center text-white">Copyright &copy; PaperBoys 2022</p>
+		</div>
 	</footer>
 	<!-- Bootstrap core JS-->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -95,6 +104,8 @@
 	<script src="scripts/Cart.js"></script>
 	<script>
 		Cart.createElements();
+		document.getElementById('money').innerHTML = Ware.formatter.format(Cart.CalculateMoneySum());
 	</script>
 </body>
+
 </html>

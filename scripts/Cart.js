@@ -158,7 +158,7 @@ class CartItem {
             self.cartCard.style.border = "1px solid rgba(0,0,0,0.125)";
             self.cartCard.style.flexDirection = 'row';
             self.cartCard.style.display = 'flex';
-            self.cartCard.style.width = 'fit-content';
+            self.cartCard.style.width = '50%';
             self.cartCard.style.flex = 'inherit';
             self.cartCard.style.flexWrap = 'nowrap';
             self.cartCard.style.alignItems = 'center';
@@ -256,6 +256,7 @@ class CartItem {
                                     self.cartCard.children[1].children[0].children[0].children[1].children[0].innerHTML = ' ' + Ware.formatter.format(self.ware.price * self.amount) + ' ';
                                 }
                                 self.cartCard.children[1].children[1].children[0].children[1].innerHTML = self.amount.toString();
+                                document.getElementById('money').innerHTML = Ware.formatter.format(Cart.CalculateMoneySum());
                             }
                             {
                                 minusButton.appendChild(document.createTextNode('-'))
@@ -284,6 +285,7 @@ class CartItem {
                                     self.cartCard.children[1].children[0].children[0].children[1].children[0].innerHTML = ' ' + Ware.formatter.format(self.ware.price * self.amount) + ' ';
                                 }
                                 self.cartCard.children[1].children[1].children[0].children[1].innerHTML = self.amount.toString();
+                                document.getElementById('money').innerHTML = Ware.formatter.format(Cart.CalculateMoneySum());
                             }
                             {
                                 plusButton.appendChild(document.createTextNode('+'))
