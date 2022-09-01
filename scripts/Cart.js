@@ -1,7 +1,7 @@
 class Ware {
-    static formatter = new Intl.NumberFormat('en-US', {
+    static formatter = new Intl.NumberFormat('sv-SE', {
         style: 'currency',
-        currency: 'USD',
+        currency: 'SEK',
 
         // These options are needed to round to whole numbers if that's what you want.
         //minimumFractionDigits: 0, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
@@ -119,20 +119,14 @@ class Ware {
 
 class CartItem {
     ware;
-    _amount = 1;
+    amount = 1;
     constructor(id, amount) {
         this.ware = Ware.wares[id];
-        this._amount = amount;
+        this.amount = amount;
         this.cartCard = null;
     }
     
     cartCard = null;
-    async updateElement() {
-
-    }
-    set amount(value) {
-        console.error("BRUH");
-    }
     async createElement() {
         /*
         <div style="border: 1px solid rgba(0,0,0,0.125);flex-direction: row;display: flex;width: fit-content;flex: inherit; flex-wrap: nowrap;align-items: center; margin-bottom: 1rem !important">
@@ -204,21 +198,21 @@ class CartItem {
                                         const price = document.createElement('span');
                                         price.classList.add('text-muted', 'text-decoration-line-through');
                                         {
-                                            price.appendChild(document.createTextNode(Ware.formatter.format(self.ware.price * self._amount))); // price
+                                            price.appendChild(document.createTextNode(Ware.formatter.format(self.ware.price * self.amount))); // price
                                         }
                                         div.appendChild(price);
                                     }
                                     {
                                         const salePrice = document.createElement('span');
                                         {
-                                            salePrice.appendChild(document.createTextNode(' ' + Ware.formatter.format(self.ware.salePrice * self._amount) + ' ')); // sale price
+                                            salePrice.appendChild(document.createTextNode(' ' + Ware.formatter.format(self.ware.salePrice * self.amount) + ' ')); // sale price
                                         }
                                         div.appendChild(salePrice);
                                     }
                                 } else {
                                     const price = document.createElement('span');
                                     {
-                                        price.appendChild(document.createTextNode(' ' + Ware.formatter.format(self.ware.price * self._amount) + ' ')); // price
+                                        price.appendChild(document.createTextNode(' ' + Ware.formatter.format(self.ware.price * self.amount) + ' ')); // price
                                     }
                                     div.appendChild(price);
                                 }
@@ -247,18 +241,18 @@ class CartItem {
                             minusButton.onclick = () => { 
                                 Cart.removeWare(self.ware.id);
                                 
-                                if(self._amount === 1) {
+                                if(self.amount === 1) {
                                     document.getElementById('cart-container').removeChild(self.cartCard);
                                 } else {
-                                    self._amount--;
+                                    self.amount--;
                                 }
                                 if (self.ware.salePrice < self.ware.price) {
-                                    self.cartCard.children[1].children[0].children[0].children[1].children[0].innerHTML = Ware.formatter.format(self.ware.price * self._amount);
-                                    self.cartCard.children[1].children[0].children[0].children[1].children[1].innerHTML = ' ' + Ware.formatter.format(self.ware.salePrice * self._amount) + ' ';
+                                    self.cartCard.children[1].children[0].children[0].children[1].children[0].innerHTML = Ware.formatter.format(self.ware.price * self.amount);
+                                    self.cartCard.children[1].children[0].children[0].children[1].children[1].innerHTML = ' ' + Ware.formatter.format(self.ware.salePrice * self.amount) + ' ';
                                 } else {
-                                    self.cartCard.children[1].children[0].children[0].children[1].children[0].innerHTML = ' ' + Ware.formatter.format(self.ware.price * self._amount) + ' ';
+                                    self.cartCard.children[1].children[0].children[0].children[1].children[0].innerHTML = ' ' + Ware.formatter.format(self.ware.price * self.amount) + ' ';
                                 }
-                                self.cartCard.children[1].children[1].children[0].children[1].innerHTML = self._amount.toString();
+                                self.cartCard.children[1].children[1].children[0].children[1].innerHTML = self.amount.toString();
                             }
                             {
                                 minusButton.appendChild(document.createTextNode('-'))
@@ -269,7 +263,7 @@ class CartItem {
                             const cartNum = document.createElement('a');
                             cartNum.classList.add('btn','btn-outline-dark', 'cart-num');
                             {
-                                cartNum.appendChild(document.createTextNode(self._amount.toString()));
+                                cartNum.appendChild(document.createTextNode(self.amount.toString()));
                             }
                             textCenter.appendChild(cartNum);
                         }
@@ -278,15 +272,15 @@ class CartItem {
                             plusButton.classList.add('btn','btn-outline-dark','mt-auto','cart-btn');
                             plusButton.onclick = () => { 
                                 Cart.addWare(self.ware.id);
-                                self._amount++;
+                                self.amount++;
 
                                 if (self.ware.salePrice < self.ware.price) {
-                                    self.cartCard.children[1].children[0].children[0].children[1].children[0].innerHTML = Ware.formatter.format(self.ware.price * self._amount);
-                                    self.cartCard.children[1].children[0].children[0].children[1].children[1].innerHTML = ' ' + Ware.formatter.format(self.ware.salePrice * self._amount) + ' ';
+                                    self.cartCard.children[1].children[0].children[0].children[1].children[0].innerHTML = Ware.formatter.format(self.ware.price * self.amount);
+                                    self.cartCard.children[1].children[0].children[0].children[1].children[1].innerHTML = ' ' + Ware.formatter.format(self.ware.salePrice * self.amount) + ' ';
                                 } else {
-                                    self.cartCard.children[1].children[0].children[0].children[1].children[0].innerHTML = ' ' + Ware.formatter.format(self.ware.price * self._amount) + ' ';
+                                    self.cartCard.children[1].children[0].children[0].children[1].children[0].innerHTML = ' ' + Ware.formatter.format(self.ware.price * self.amount) + ' ';
                                 }
-                                self.cartCard.children[1].children[1].children[0].children[1].innerHTML = self._amount.toString();
+                                self.cartCard.children[1].children[1].children[0].children[1].innerHTML = self.amount.toString();
                             }
                             {
                                 plusButton.appendChild(document.createTextNode('+'))
@@ -303,6 +297,44 @@ class CartItem {
         });
         
     }
+    async createCheckoutElement() {
+        /* 
+        <p>
+            <a href="#">
+                Paper
+            </a> 
+            <span class="price">
+                $15
+            </span>
+        </p>
+        */
+        const self = this;
+        return new Promise(() => {
+            const pee = document.createElement('p');
+            {
+                const name = document.createElement('a');
+                name.href = '#';
+                {
+                    name.innerHTML = self.ware.name;
+                }
+                pee.appendChild(name);
+            }
+            {
+                const price = document.createElement('span');
+                price.classList.add('price');
+                {
+                    if(self.ware.salePrice < self.ware.price) {
+                        price.innerHTML = Ware.formatter.format(self.ware.salePrice * self.amount);
+                    } else {
+                        price.innerHTML = Ware.formatter.format(self.ware.price * self.amount);
+                    }
+                    
+                }
+                pee.appendChild(price);
+            }
+            document.getElementById('checkout-container').appendChild(pee);
+        });
+    }
 }
 
 class Cart {
@@ -312,6 +344,21 @@ class Cart {
             sum += parseInt(localStorage.getItem(`cartWare${index}`));
         }
         Cart.Num.innerHTML = sum.toString();
+    }
+    static CalculateMoneySum() {
+        let sum = 0;
+        for (let index = 0; index < Cart.items.length; index++) {
+            
+            const bruh = Cart.items[index];
+            console.log(bruh);
+            if(bruh.ware.salePrice < bruh.ware.price) {
+                sum += bruh.ware.salePrice * bruh.amount;
+            } else {
+                sum += bruh.ware.price * bruh.amount;
+            }
+            
+        }
+        return sum;
     }
     static cart = Cart.items;
     static Num = document.getElementById('cart-num');
@@ -326,7 +373,10 @@ class Cart {
                 sum += intCount;
             }
         }
-        Cart.Num.innerHTML = sum.toString();
+        if(Cart.Num !== null) {
+            Cart.Num.innerHTML = sum.toString();
+        }
+        
     }
     static clear() {
         for (let index = 0; index < Ware.wares.length; index++) {
@@ -354,7 +404,7 @@ class Cart {
 
         for (let index = 0; index < Ware.wares.length; index++) {
             const item = new CartItem(index, parseInt(localStorage.getItem(`cartWare${index}`)));
-            if(item._amount != 0) {
+            if(item.amount != 0) {
                 userCart.push(item);
             }
         }
@@ -370,12 +420,20 @@ class Cart {
             Promise.race(createElementThreads);
         }
     }
-    static updateElements(id) {
-        console.error("FUCK");
+    static async createCheckoutElements() {
+        Cart.cart = Cart.items;
+        const createElementThreads = [];
+        for (let index = 0; index < Cart.cart.length; index++) {
+            createElementThreads.push(Cart.cart[index].createCheckoutElement());
+        }
+        for (let index = 0; index < createElementThreads.length; index++) {
+            Promise.race(createElementThreads);
+        }
+        document.getElementById('money').innerHTML = Ware.formatter.format(Cart.CalculateMoneySum());
     }
 }
-Ware.AddToWares('paper.png', 'A0', 1000000, 1);
-Ware.AddToWares('paper.png', 'A1', 1000000, 0.01);
+Ware.AddToWares('paper.png', 'A0', 5, 5);
+Ware.AddToWares('paper.png', 'A1', -1, -2);
 Ware.AddToWares('paper.png', 'A2', 1000000, 0.01);
 Ware.AddToWares('paper.png', 'A3', 1000000, 0.01);
 Ware.AddToWares('paper.png', 'A4', 1000000, 0.01);
