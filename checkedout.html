@@ -51,5 +51,19 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Core theme JS-->
     <script src="scripts/Cart.js"></script>
+    <script>
+        const params = new URLSearchParams(window.location.search);
+
+        const fakeButton = document.createElement('a');
+        fakeButton.href = 'data:text/plain;charset=utf-8,Tack ' + 
+        params.get('firstname') + 
+        ' för att du köper på PaperBoys!\nDin order är:\n' + 
+        Cart.items.reduce((acc,curr) => {
+            return acc + curr.ware.name + '\t\t' + Ware.formatter.format(curr.amount * Math.min(curr.ware.salePrice, curr.ware.price)) + '\n';
+        },'') + 
+        'Total\t\t' + Ware.formatter.format(Cart.CalculateMoneySum());
+        fakeButton.download = 'kvitto.txt';
+        fakeButton.click();
+    </script>
 </body>
 </html>
