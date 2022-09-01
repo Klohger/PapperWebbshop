@@ -51,51 +51,45 @@
                                             <div class="row">
                                                 <div class="col-50">
                                                     <h3>Faktura address</h3>
-                                                    <label for="fname"><i class="fa fa-user"></i> Namn</label>
-                                                    <input type="text" id="fname" name="firstname" placeholder="Elias Svensson*">
-                                                    <label for="email"><i class="fa fa-envelope"></i> Email</label>
-                                                    <input type="text" id="email" name="email" placeholder="john@exempel.com">
-                                                    <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
-                                                    <input type="text" id="adr" name="address" placeholder="Vengatan 12">
-                                                    <label for="city"><i class="fa fa-institution"></i> Stad</label>
-                                                    <input type="text" id="city" name="city" placeholder="Landskrona*">
+                                                    <label for="fname"><i class="fa fa-user"></i>Namn <span class="required">*</span></label>
+                                                    <input type="text" id="fname" name="firstname" placeholder="Elias Svensson" required="required">
+                                                    <label for="email"><i class="fa fa-envelope"></i>Email <span class="required">*</span></label>
+                                                    <input type="text" id="email" name="email" placeholder="john@exempel.com" required="required">
+                                                    <label for="adr"><i class="fa fa-address-card-o"></i>Address <span class="required">*</span></label>
+                                                    <input type="text" id="adr" name="address" placeholder="Vengatan 12" required="required">
+                                                    <label for="city"><i class="fa fa-institution"></i>Stad <span class="required">*</span></label>
+                                                    <input type="text" id="city" name="city" placeholder="Landskrona" required="required">
 
                                                     <div class="row">
                                                         <div class="col-50">
-                                                            <label for="state">Region</label>
-                                                            <input type="text" id="state" name="Region" placeholder="Skåne">
+                                                            <label for="state">Region <span class="required">*</span></label>
+                                                            <input type="text" id="state" name="Region" placeholder="Skåne" required="required">
                                                         </div>
                                                         <div class="col-50">
-                                                            <label for="zip">Postnummer</label>
-                                                            <input type="text" id="zip" name="Postnummer" placeholder="241 34">
+                                                            <label for="zip">Postnummer <span class="required">*</span></label>
+                                                            <input type="text" id="zip" name="Postnummer" placeholder="241 34" required="required">
                                                         </div>
                                                     </div>
                                                 </div>
 
                                                 <div class="col-50">
                                                     <h3>Betalning</h3>
-                                                    <div class="icon-container">
-                                                        <i class="fa fa-cc-visa" style="color:navy;"></i>
-                                                        <i class="fa fa-cc-amex" style="color:blue;"></i>
-                                                        <i class="fa fa-cc-mastercard" style="color:red;"></i>
-                                                        <i class="fa fa-cc-discover" style="color:orange;"></i>
-                                                    </div>
 
-                                                    <label for="cname">Namn på kortet</label>
-                                                    <input type="text" id="cname" name="Kortnamn" placeholder="Anna Lol">
-                                                    <label for="ccnum">Kreditkort nummer</label>
-                                                    <input type="text" id="ccnum" name="Kreditkort nummer" placeholder="1111-2222-3333-4444">
-                                                    <label for="expmonth">Utgångs datum</label>
-                                                    <input type="text" id="expmonth" name="Utgångs datum" placeholder="September">
+                                                    <label for="cname">Namn på kortet <span class="required">*</span></label>
+                                                    <input type="text" id="cname" name="Kortnamn" placeholder="Elias Svensson" required="required">
+                                                    <label for="ccnum">Kreditkortsnummer <span class="required">*</span></label>
+                                                    <input type="text" id="ccnum" name="Kreditkort nummer" placeholder="1111-2222-3333-4444" required="required">
+                                                    <label for="expmonth">Utgångsmånad <span class="required">*</span></label>
+                                                    <input type="text" id="expmonth" name="Utgångs datum" placeholder="September" required="required">
 
                                                     <div class="row">
                                                         <div class="col-50">
-                                                            <label for="expyear">Utgångs år</label>
-                                                            <input type="text" id="expyear" name="Utgångs år" placeholder="2018">
+                                                            <label for="expyear">Utgångsår <span class="required">*</span></label>
+                                                            <input type="text" id="expyear" name="Utgångs år" placeholder="2018" required="required">
                                                         </div>
                                                         <div class="col-50">
-                                                            <label for="cvv">CVV</label>
-                                                            <input type="text" id="cvv" name="cvv" placeholder="352">
+                                                            <label for="cvv">CVV <span class="required">*</span></label>
+                                                            <input type="text" id="cvv" name="cvv" placeholder="352" required="required">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -118,7 +112,6 @@
         <footer class="py-5 bg-dark">
             <div class="container"><p class="m-0 text-center text-white">Copyright &copy; PaperBoys 2022</p></div>
         </footer>
-
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <script type="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
