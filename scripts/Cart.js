@@ -403,7 +403,7 @@ Ware.AddToWares('paper.png', 'A6', 0.05);
 Ware.AddToWares('paper.png', 'A7', 0.05);
 Ware.AddToWares('paper.png', 'A8', 0.05);
 Ware.AddToWares('pen.png', 'Penna', 20);
-Ware.AddToWares('eraser.png', 'Suddgumm', 12);
+Ware.AddToWares('eraser.png', 'Sudd', 12);
 Ware.AddToWares('ruler.png', 'Linjal', 25);
 
 Cart.init();
