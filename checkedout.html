@@ -59,9 +59,9 @@
         params.get('firstname') + 
         ' för att du köper på PaperBoys!\nDin order är:\n' + 
         Cart.items.reduce((acc,curr) => {
-            return acc + curr.ware.name + '\t\t' + Ware.formatter.format(curr.amount * Math.min(curr.ware.salePrice, curr.ware.price)) + '\n';
+            return acc + curr.amount + ' x ' + curr.ware.name + '\t\t' + Ware.formatter.format(curr.amount * curr.ware.price) + '\n';
         },'') + 
-        'Total\t\t' + Ware.formatter.format(Cart.CalculateMoneySum());
+        '\nTotal\t\t' + Ware.formatter.format(Cart.CalculateMoneySum());
         fakeButton.download = 'kvitto.txt';
         fakeButton.click();
     </script>
