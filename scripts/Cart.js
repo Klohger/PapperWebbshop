@@ -77,7 +77,7 @@ class Ware {
                         {
                             const button = document.createElement('a');
                             button.classList.add('btn', 'btn-outline-dark', 'mt-auto');
-                            button.appendChild(document.createTextNode('Add to cart'));
+                            button.appendChild(document.createTextNode('Lägg till i kundvagn'));
                             button.onclick = () => {
                                 Cart.addWare(self.id);
                                 document.getElementById('popup').hidden = false;
