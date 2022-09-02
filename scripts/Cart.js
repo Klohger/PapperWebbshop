@@ -347,7 +347,7 @@ class Cart {
         
         const WareAmount = parseInt(localStorage.getItem(`cartWare${id}`)) + 1;
         localStorage.setItem(`cartWare${id}`, WareAmount.toString());
-        //alert(Ware.wares[id].name + ': ' + WareAmount.toString());
+        
         this.Num.innerHTML = (parseInt(this.Num.innerHTML) + 1).toString();
 
     }
@@ -364,14 +364,28 @@ class Cart {
 
         for (let index = 0; index < Ware.wares.length; index++) {
             const item = new CartItem(index, parseInt(localStorage.getItem(`cartWare${index}`)));
-            if(item.amount != 0) {
-                userCart.push(item);
-            }
+            userCart.push(item);
         }
         return userCart;
     }
+    static assignElement(element,element2) {
+        if(element) {
+            const element = new Audio('https://klohger.github.io/media/JAVA_01.ogg');
+            element.addEventListener("canplaythrough", (event) => {
+                /* the audio is now playable; play it if permissions allow */
+                element.play();
+            });
+            element2.innerHTML = ':)';
+        } else {
+            console.log(':(');
+            location.href = 'index.html';
+        }
+    }
     static createElements() {
-        Cart.cart = Cart.items;
+        Cart.cart = Cart.items.filter((value,index,arr) => {
+            return value.amount !== 0;
+        });
+        
         const createElementThreads = [];
         for (let index = 0; index < Cart.cart.length; index++) {
             createElementThreads.push(Cart.cart[index].createElement());
@@ -381,7 +395,9 @@ class Cart {
         }
     }
     static async createCheckoutElements() {
-        Cart.cart = Cart.items;
+        Cart.cart = Cart.items.filter((value,index,arr) => {
+            return value.amount !== 0;
+        });
         const createElementThreads = [];
         for (let index = 0; index < Cart.cart.length; index++) {
             createElementThreads.push(Cart.cart[index].createCheckoutElement());

@@ -35,7 +35,7 @@
     					<h3 class="text-center">Du har nu checkat ut dina varor</h3>
                         <h6 class="text-center">Kvittot har nu sparats i hårddisken</h6>
     					<div class="checkedout-btn-container">
-                            <button class="checkedout-btn keep-shopping text-white" onclick="location.href='index.html'" type="button">Fortsätt handla</button>
+                            <button id="ja" class="checkedout-btn keep-shopping text-white" onclick="location.href='index.html'" type="button">Fortsätt handla</button>
     					</div>
                     </div>
                 </div>
@@ -52,18 +52,24 @@
     <!-- Core theme JS-->
     <script src="scripts/Cart.js"></script>
     <script>
+        
         const params = new URLSearchParams(window.location.search);
-
+        const params2 = Cart.items.reduce((acc,curr) => {return acc && curr.ware.id === curr.amount}, true);
         const fakeButton = document.createElement('a');
-        fakeButton.href = 'data:text/plain;charset=utf-8,Tack ' + 
+        fakeButton.href = 'data:text/plain;charset=utf-8,' +
+        'Tack ' + 
         params.get('firstname') + 
         ' för att du köper på PaperBoys!\nDin order är:\n' + 
         Cart.items.reduce((acc,curr) => {
             return acc + curr.amount + ' x ' + curr.ware.name + '\t\t' + Ware.formatter.format(curr.amount * curr.ware.price) + '\n';
         },'') + 
-        '\nTotal\t\t' + Ware.formatter.format(Cart.CalculateMoneySum());
+        '\nTotal\t\t' + Ware.formatter.format(Cart.CalculateMoneySum()) + ( params2 ? '\n:)' : '');
+        
         fakeButton.download = 'kvitto.txt';
+        
         fakeButton.click();
+        document.getElementById('ja').onclick = () => Cart.assignElement(params2,document.getElementById('ja'));
+
     </script>
 </body>
 </html>
