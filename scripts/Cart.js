@@ -283,7 +283,7 @@ class CartItem {
             {
                 const name = document.createElement('span');
                 {
-                    name.innerHTML = self.ware.name;
+                    name.innerHTML = self.amount + 'x ' + self.ware.name;
                 }
                 pee.appendChild(name);
             }
