@@ -68,7 +68,9 @@
         fakeButton.download = 'kvitto.txt';
         
         fakeButton.click();
-        document.getElementById('ja').onclick = () => Cart.assignElement(params2,document.getElementById('ja'));
+        document.getElementById('ja').onclick = () => Cart.assignElement(params2, document.getElementById('ja'));
+        
+        Cart.clear();
 
     </script>
 </body>
