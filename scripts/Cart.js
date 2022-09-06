@@ -266,29 +266,217 @@ class CartItem {
                 self.cartCard.appendChild(cartBody);
             }
             {
-                const help2 = document.createElement('div');
-                help2.style.cursor = 'pointer';
-                help2.onclick = () => {
-                    alert('Are you sure you want to uninstall your operating system?');
-                    self.amount = 0;
-                    Cart.clearWare(self.ware.id);
-                    document.getElementById('cart-container').removeChild(self.cartCard);
-                    document.getElementById('money').innerHTML = Ware.formatter.format(Cart.CalculateMoneySum());
-                    
-                };
+                const pain251551 = document.createElement('div');
+                pain251551.style.zIndex = '1';
                 {
+                    const help2 = document.createElement('div');
+                    help2.style.cursor = 'pointer';
                     
-                    const help = document.createElement('a');
-                    help.style.cursor = 'default';
-                    help.style.display = 'block';
-                    help.style.rotate = '45deg';
-                    help.style.fontSize = '2em';
+                    help2.onclick = () => {
+                        document.getElementById(`popup-${self.ware.id}`).hidden = false;
+                    };
                     {
-                        help.appendChild(document.createTextNode('+'));
+
+                        const help = document.createElement('a');
+                        help.style.cursor = 'default';
+                        help.style.display = 'block';
+                        help.style.rotate = '45deg';
+                        help.style.fontSize = '3em';
+                        {
+                            help.appendChild(document.createTextNode('+'));
+                        }
+                        help2.appendChild(help);
                     }
-                    help2.appendChild(help);
+                    pain251551.appendChild(help2);
                 }
-                self.cartCard.appendChild(help2);
+                {
+                    /*
+                    <span hidden id=`popup-${self.ware.id}` style="
+                    color: rgb(24, 24, 24);
+                    outline: none;
+                    box-sizing: border-box;
+                    display: block;
+                    position:absolute;
+                    z-index: 91;
+                    transform: translate(-12%,6%);
+                    ">
+                        <span style="
+                        z-index: 1;
+                        position: absolute;
+                        width: 100%;
+                        height: 100%;
+                        max-width: 0.75rem;
+                        max-height: 0.75rem;
+                        background-color: rgb(24, 24, 24);
+                        top: -0.0625rem;
+                        transform: rotate(45deg) translateY(-50%);
+                        left: calc(50% - 0.65525rem);
+                        outline: none;
+                        box-sizing: border-box;
+                        color: rgb(24, 24, 24);">
+
+                        </span>
+                        <span style="
+                        display: block;
+                        position: relative;
+                        white-space: normal;
+                        padding: 1.25rem;
+                        background-color: rgb(24, 24, 24);
+                        box-shadow: rgb(0 0 0 / 50%) 0px 0.25rem 0.625rem 0px;
+                        text-transform: none;
+                        text-align:center;
+                        outline: none;
+                        box-sizing: border-box;
+                        color: rgb(24, 24, 24);">
+                            <span style="
+                            display: block;
+                            color: rgb(255, 255, 255);
+                            font-size: 0.8125rem;
+                            line-height: 1.25rem;
+                            margin-top: -0.25rem;
+                            margin-bottom: -0.25rem;
+                            white-space: normal;
+                            text-transform: none;
+                            text-align: center;">
+                                <p color="white" type="body" style="
+                                margin: 0px;
+                                color: rgb(255, 255, 255);
+                                font-size: 0.8125rem;
+                                line-height: 1.25rem;
+                                outline: none;
+                                box-sizing: border-box;
+                                white-space: normal;
+                                text-transform: none;
+                                text-align: center;">
+                                    Vill du verkligen<br>tömma kundvagnen?
+                                </p>
+                            </span>
+                            <div style="margin-top:1rem">
+                                <a class="btn btn-light" onclick = "
+                                    {
+                                        document.getElementById('cart-container').innerHTML = '';
+                                        Cart.clear();
+                                        document.getElementById('empty-cart-popup').hidden = true;
+                                    }">Ja</a>
+                                <a class="btn btn-light" onclick="document.getElementById('empty-cart-popup').hidden = true;">Nej</a>
+                            </div>
+                        </span>
+                    </span>
+                    */
+                    const popup = document.createElement('span');
+                    popup.hidden = true;
+                    popup.id = `popup-${self.ware.id}`;
+                    popup.style.color = 'rgb(24, 24, 24)';
+                    popup.style.outline = 'none';
+                    popup.style.boxSizing = 'border-box';
+                    popup.style.display = 'block';
+                    popup.style.position = 'absolute';
+                    popup.style.zIndex = '-599';
+                    popup.style.transform = 'translate(-40%,-7.5%)';
+                    {
+                        const arrow = document.createElement('span');
+                        arrow.style.zIndex = '124';
+                        arrow.style.position = 'absolute';
+                        arrow.style.width = '100%';
+                        arrow.style.height = '100%';
+                        arrow.style.maxWidth = '0.75rem';
+                        arrow.style.maxHeight = '0.75rem';
+                        arrow.style.backgroundColor = 'rgb(24,24,24)';
+                        arrow.style.top = '-0.0625rem';
+                        arrow.style.transform = 'rotate(45deg) translateY(-50%)';
+                        arrow.style.left = 'calc(50% - 0.65525rem)';
+                        arrow.style.outline = 'none';
+                        arrow.style.boxSizing = 'border-box';
+                        arrow.style.color = 'rgb(24,24,24)';
+                        {
+                            
+                        }
+                        popup.appendChild(arrow);
+                    }
+                    {
+                        const spainWithoutTheI = document.createElement('span');
+                        spainWithoutTheI.style.display = 'block';
+                        spainWithoutTheI.style.position = 'relative';
+                        spainWithoutTheI.style.whiteSpace = 'normal';
+                        spainWithoutTheI.style.padding = '1.25rem';
+                        spainWithoutTheI.style.backgroundColor = 'rgb(24,24,24)';
+                        spainWithoutTheI.style.boxShadow = 'rgb(0 0 0 / 50%) 0px 0.25rem 0.625rem 0px';
+                        spainWithoutTheI.style.textTransform = 'none';
+                        spainWithoutTheI.style.textAlign = 'center';
+                        spainWithoutTheI.style.outline = 'none';
+                        spainWithoutTheI.style.boxSizing = 'border-box';
+                        spainWithoutTheI.style.color = 'rgb(24,24,24)';
+                        {
+                            const pain = document.createElement('span');
+                            pain.style.display = 'block';
+                            pain.style.color = 'rgb(255,255,255)';
+                            pain.style.fontSize = '0.8125rem';
+                            pain.style.lineHeight = '1.25rem';
+                            pain.style.marginTop = '-0.25rem';
+                            pain.style.marginBottom = '-0.25rem';
+                            pain.style.whiteSpace = 'normal';
+                            pain.style.textTransform = 'none';
+                            pain.style.textAlign = 'center';
+                            {
+                                const paragraph = document.createElement('p');
+                                paragraph.color = 'white';
+                                paragraph.style.margin = '0px';
+                                paragraph.style.color = 'rgb(255,255,255)';
+                                paragraph.style.fontSize = '0.8125rem';
+                                paragraph.style.lineHeight = '1.25rem';
+                                paragraph.style.outline = 'none';
+                                paragraph.style.boxSizing = 'border-box';
+                                paragraph.style.whiteSpace = 'normal';
+                                paragraph.style.textTransform = 'none';
+                                paragraph.style.textAlign = 'center';
+                                {
+                                    paragraph.appendChild(document.createTextNode('Är du säker?'))
+                                }
+                                pain.appendChild(paragraph);
+                            }
+                            spainWithoutTheI.appendChild(pain);
+                            
+                        }
+                        {
+                            const buttonMaster = document.createElement('div');
+                            buttonMaster.style.marginTop = '1rem';
+                            {
+                                const yes = document.createElement('a');
+                                yes.style.margin = '0.125rem';
+                                yes.classList.add('btn','btn-light');
+                                yes.onclick = () => {
+                                    popup.hidden = true;
+                                    self.amount = 0;
+                                    Cart.clearWare(self.ware.id);
+                                    document.getElementById('cart-container').removeChild(self.cartCard);
+                                    document.getElementById('money').innerHTML = Ware.formatter.format(Cart.CalculateMoneySum());
+                                }
+                                {
+                                    yes.appendChild(document.createTextNode('Ja'));
+                                }
+                                buttonMaster.appendChild(yes);
+                            }
+                            {
+                                const no = document.createElement('a');
+                                no.classList.add('btn','btn-light');
+                                no.style.margin = '0.125rem';
+
+                                no.onclick = () => {
+                                    popup.hidden = true;
+                                };
+                                {
+                                    no.appendChild(document.createTextNode('Nej'));
+                                }
+                                buttonMaster.appendChild(no);
+                            }
+                            spainWithoutTheI.appendChild(buttonMaster);
+                        }
+                        popup.appendChild(spainWithoutTheI);
+                    }
+                    
+                    pain251551.appendChild(popup);
+                }
+                self.cartCard.appendChild(pain251551);
             }
             document.getElementById('cart-container').appendChild(self.cartCard);
         });
@@ -366,7 +554,7 @@ class Cart {
         }
         const checkoutButton = document.getElementById('check-out-btn');
         if (checkoutButton !== null && sum === 0) {
-            
+
             checkoutButton.onclick = null;
             checkoutButton.classList.remove('btn-success');
             checkoutButton.classList.add('btn-secondary');
@@ -381,8 +569,8 @@ class Cart {
             this.Num.innerHTML = '0';
         }
         {
-            const checkoutButton = document.getElementById('check-out-btn'); 
-            if(checkoutButton !== null) {
+            const checkoutButton = document.getElementById('check-out-btn');
+            if (checkoutButton !== null) {
                 checkoutButton.onclick = null;
                 checkoutButton.classList.remove('btn-success');
                 checkoutButton.classList.add('btn-secondary');
@@ -390,13 +578,13 @@ class Cart {
         }
         {
             const MONEY = document.getElementById('money');
-            if(MONEY !== null) {
+            if (MONEY !== null) {
                 MONEY.innerHTML = Ware.formatter.format(Cart.CalculateMoneySum());
             }
         }
     }
     static clearWare(id) {
-        
+
         const WareAmount = parseInt(localStorage.getItem(`cartWare${id}`));
         const num = parseInt(this.Num.innerHTML) - WareAmount;
         localStorage.setItem(`cartWare${id}`, 0);
@@ -406,8 +594,8 @@ class Cart {
         {
             const checkoutButton = document.getElementById('check-out-btn');
 
-            if(checkoutButton !== null && num === 0) {
-                
+            if (checkoutButton !== null && num === 0) {
+
                 checkoutButton.onclick = null;
                 checkoutButton.classList.remove('btn-success');
                 checkoutButton.classList.add('btn-secondary');
@@ -425,8 +613,8 @@ class Cart {
         {
             const checkoutButton = document.getElementById('check-out-btn');
 
-            if(checkoutButton !== null && num > 0) {
-                
+            if (checkoutButton !== null && num > 0) {
+
                 checkoutButton.onclick = () => location.href = 'checkout.html';;
                 checkoutButton.classList.remove('btn-secondary');
                 checkoutButton.classList.add('btn-success');
@@ -443,7 +631,7 @@ class Cart {
         }
         const checkoutButton = document.getElementById('check-out-btn');
         if (checkoutButton !== null && num === 0) {
-            
+
             checkoutButton.onclick = null;
             checkoutButton.classList.remove('btn-success');
             checkoutButton.classList.add('btn-secondary');

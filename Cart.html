@@ -18,7 +18,7 @@
 <body>
 	<div class="content">
 		<!-- Navigation-->
-		<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-navbar">
+		<nav style='z-index: 1000000000000000000000000000000000;' class="navbar navbar-expand-lg navbar-light bg-light fixed-navbar">
 			<div class="container px-4 px-lg-5">
 				<h1 class="navbar-brand">PaperBoys</h1>
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -59,7 +59,79 @@
 				<h3>Din kundvagn</h3>
 
 				<div class="cart-button-container">
-					<button id="empty-cart-btn" class="empty-cart-button text-white" type="button">Töm kundvagn</button>
+					<div>
+						<button id="empty-cart-btn" class="empty-cart-button text-white" type="button" onclick="document.getElementById('empty-cart-popup').hidden = false">Töm kundvagn</button>
+							<span hidden id="empty-cart-popup" style="
+							color: rgb(24, 24, 24);
+							outline: none;
+							box-sizing: border-box;
+							display: block;
+							position:absolute;
+							z-index: 1;
+							transform: translate(-12%,6%);
+							">
+								<span style="
+								z-index: 1;
+								position: absolute;
+								width: 100%;
+								height: 100%;
+								max-width: 0.75rem;
+								max-height: 0.75rem;
+								background-color: rgb(24, 24, 24);
+								top: -0.0625rem;
+								transform: rotate(45deg) translateY(-50%);
+								left: calc(50% - 0.65525rem);
+								outline: none;
+								box-sizing: border-box;
+								color: rgb(24, 24, 24);"></span>
+								<span style="
+								display: block;
+								position: relative;
+								white-space: normal;
+								padding: 1.25rem;
+								background-color: rgb(24, 24, 24);
+								box-shadow: rgb(0 0 0 / 50%) 0px 0.25rem 0.625rem 0px;
+								text-transform: none;
+								text-align:center;
+								outline: none;
+								box-sizing: border-box;
+								color: rgb(24, 24, 24);">
+									<span style="
+									display: block;
+									color: rgb(255, 255, 255);
+									font-size: 0.8125rem;
+									line-height: 1.25rem;
+									margin-top: -0.25rem;
+									margin-bottom: -0.25rem;
+									white-space: normal;
+									text-transform: none;
+									text-align: center;">
+										<p color="white" type="body" style="
+										margin: 0px;
+										color: rgb(255, 255, 255);
+										font-size: 0.8125rem;
+										line-height: 1.25rem;
+										outline: none;
+										box-sizing: border-box;
+										white-space: normal;
+										text-transform: none;
+										text-align: center;">
+											Vill du verkligen<br>tömma kundvagnen?
+										</p>
+									</span>
+									<div style="margin-top:1rem">
+										<a class="btn btn-light" onclick = "
+											{
+												document.getElementById('cart-container').innerHTML = '';
+												Cart.clear();
+												document.getElementById('empty-cart-popup').hidden = true;
+											}">Ja</a>
+										<a class="btn btn-light" onclick="document.getElementById('empty-cart-popup').hidden = true;">Nej</a>
+									</div>
+								</span>
+							</span>
+					</div>
+					
 					<button class="keep-shopping text-white" onclick="location.href='index.html'" type="button">Fortsätt handla ></button>
 				</div>
 
@@ -105,11 +177,6 @@
 	<script>
 		Cart.createElements();
 		document.getElementById('money').innerHTML = Ware.formatter.format(Cart.CalculateMoneySum());
-		document.getElementById('empty-cart-btn').onclick = () => {
-			alert('Are you sure you want to uninstall your operating system?');
-			document.getElementById('cart-container').innerHTML = '';
-			Cart.clear();
-		};
 	</script>
 </body>
 
