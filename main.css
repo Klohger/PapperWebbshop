@@ -588,6 +588,30 @@ progress {
   display: flex;
 }
 
+.empty-cart-button {
+  background-color: #212529;
+  margin-right: auto;
+  align-items: flex-start;
+  padding: 10px;
+  border-radius: 25px;
+}
+
+.empty-cart-button:hover {
+  background-color: #000;
+}
+
+.keep-shopping {
+  background-color: #212529;
+  margin-left: auto;
+  align-items: flex-end;
+  padding: 10px;
+  border-radius: 25px;
+}
+
+.keep-shopping:hover {
+  background-color: #000;
+}
+
 .cart-button {
   margin-left: auto;
   align-items: flex-end;
@@ -605,14 +629,6 @@ progress {
 .checkedout-btn {
   padding: 10px;
   border-radius: 25px;
-}
-
-.keep-shopping {
-  background-color: #212529;
-}
-
-.keep-shopping:hover {
-  background-color: #000;
 }
 
 .check-out {
