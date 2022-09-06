@@ -20,7 +20,7 @@ class Ware {
         Ware.wares[Ware.wares.length] = new Ware(Ware.wares.length, imageUrl, name, price, salePrice);
     }
     async updateElement() {
-        
+
     }
     async createElement() {
         const self = this;
@@ -56,12 +56,12 @@ class Ware {
                         {
                             const productPrice = document.createElement('div');
 
-                                const price = document.createElement('span');
+                            const price = document.createElement('span');
 
-                                price.appendChild(document.createTextNode(' ' + Ware.formatter.format(self.price) + ' '));
+                            price.appendChild(document.createTextNode(' ' + Ware.formatter.format(self.price) + ' '));
 
-                                productPrice.appendChild(price);
-                            
+                            productPrice.appendChild(price);
+
                             textCenter.appendChild(productPrice);
                         }
                         productDetails.appendChild(textCenter);
@@ -81,8 +81,8 @@ class Ware {
                             button.onclick = () => {
                                 Cart.addWare(self.id);
                                 document.getElementById('popup').hidden = false;
-                                setTimeout(()=> document.getElementById('popup').hidden = true, 1000);
-                            } 
+                                setTimeout(() => document.getElementById('popup').hidden = true, 1000);
+                            }
                             textCenter.appendChild(button);
                         }
                         productActions.appendChild(textCenter);
@@ -91,7 +91,7 @@ class Ware {
                 }
                 self.cardContainer.appendChild(card);
             }
-            
+
 
         });
     }
@@ -115,7 +115,7 @@ class CartItem {
         this.amount = amount;
         this.cartCard = null;
     }
-    
+
     cartCard = null;
     async createElement() {
         /*
@@ -139,13 +139,13 @@ class CartItem {
         </div>
         */
         const self = this;
-        
+
         return new Promise(() => {
             self.cartCard = document.createElement("div");
             self.cartCard.style.border = "1px solid rgba(0,0,0,0.125)";
             self.cartCard.style.flexDirection = 'row';
             self.cartCard.style.display = 'flex';
-            self.cartCard.style.width = '50%';
+            self.cartCard.style.width = 'fit-content';
             self.cartCard.style.flex = 'inherit';
             self.cartCard.style.flexWrap = 'nowrap';
             self.cartCard.style.alignItems = 'center';
@@ -172,7 +172,7 @@ class CartItem {
                         const textCenter = document.createElement('div');
                         textCenter.classList.add('text-center');
                         textCenter.style.display = 'flex';
-                        textCenter.style.justifyContent= 'space-between';
+                        textCenter.style.justifyContent = 'space-between';
                         {
                             const name = document.createElement('h5');
                             name.classList.add('fw-bolder');
@@ -184,19 +184,19 @@ class CartItem {
                         {
                             const div = document.createElement('div');
                             {
-                                
-                                    const price = document.createElement('span');
-                                    {
-                                        price.appendChild(document.createTextNode(' ' + Ware.formatter.format(self.ware.price * self.amount) + ' ')); // price
-                                    }
-                                    div.appendChild(price);
-                                
+
+                                const price = document.createElement('span');
+                                {
+                                    price.appendChild(document.createTextNode(' ' + Ware.formatter.format(self.ware.price * self.amount) + ' ')); // price
+                                }
+                                div.appendChild(price);
+
                             }
                             textCenter.appendChild(div);
                         }
                         cartBody2.appendChild(textCenter);
                     }
-                    
+
                     cartBody.appendChild(cartBody2);
                 }
                 {
@@ -212,17 +212,17 @@ class CartItem {
                         textCenter.style.flexWrap = 'nowrap';
                         {
                             const minusButton = document.createElement('a');
-                            minusButton.classList.add('btn','btn-outline-dark','mt-auto','cart-btn');
-                            minusButton.onclick = () => { 
+                            minusButton.classList.add('btn', 'btn-outline-dark', 'mt-auto', 'cart-btn');
+                            minusButton.onclick = () => {
                                 Cart.removeWare(self.ware.id);
-                                
-                                if(self.amount === 1) {
+
+                                if (self.amount === 1) {
                                     document.getElementById('cart-container').removeChild(self.cartCard);
                                 } else {
                                     self.amount--;
                                 }
                                 self.cartCard.children[1].children[0].children[0].children[1].children[0].innerHTML = ' ' + Ware.formatter.format(self.ware.price * self.amount) + ' ';
-                                
+
                                 self.cartCard.children[1].children[1].children[0].children[1].innerHTML = self.amount.toString();
                                 document.getElementById('money').innerHTML = Ware.formatter.format(Cart.CalculateMoneySum());
                             }
@@ -233,7 +233,7 @@ class CartItem {
                         }
                         {
                             const cartNum = document.createElement('a');
-                            cartNum.classList.add('btn','btn-outline-dark', 'cart-num');
+                            cartNum.classList.add('btn', 'btn-outline-dark', 'cart-num');
                             {
                                 cartNum.appendChild(document.createTextNode(self.amount.toString()));
                             }
@@ -241,8 +241,8 @@ class CartItem {
                         }
                         {
                             const plusButton = document.createElement('a');
-                            plusButton.classList.add('btn','btn-outline-dark','mt-auto','cart-btn');
-                            plusButton.onclick = () => { 
+                            plusButton.classList.add('btn', 'btn-outline-dark', 'mt-auto', 'cart-btn');
+                            plusButton.onclick = () => {
                                 Cart.addWare(self.ware.id);
                                 self.amount++;
 
@@ -264,7 +264,7 @@ class CartItem {
             }
             document.getElementById('cart-container').appendChild(self.cartCard);
         });
-        
+
     }
     async createCheckoutElement() {
         /* 
@@ -291,7 +291,7 @@ class CartItem {
                 const price = document.createElement('span');
                 price.classList.add('price');
                 {
-                        price.innerHTML = Ware.formatter.format(self.ware.price * self.amount);
+                    price.innerHTML = Ware.formatter.format(self.ware.price * self.amount);
                 }
                 pee.appendChild(price);
             }
@@ -311,12 +311,12 @@ class Cart {
     static CalculateMoneySum() {
         let sum = 0;
         for (let index = 0; index < Cart.items.length; index++) {
-            
+
             const bruh = Cart.items[index];
             {
                 sum += bruh.ware.price * bruh.amount;
             }
-            
+
         }
         return sum;
     }
@@ -333,10 +333,17 @@ class Cart {
                 sum += intCount;
             }
         }
-        if(Cart.Num !== null) {
+        if (Cart.Num !== null) {
             Cart.Num.innerHTML = sum.toString();
         }
-        
+        const checkoutButton = document.getElementById('check-out-btn');
+        if (checkoutButton !== null && sum === 0) {
+            
+            checkoutButton.onclick = null;
+            checkoutButton.classList.remove('btn-success');
+            checkoutButton.classList.add('btn-secondary');
+        }
+
     }
     static clear() {
         for (let index = 0; index < Ware.wares.length; index++) {
@@ -344,18 +351,38 @@ class Cart {
         }
     }
     static addWare(id) {
-        
+
+        const num = parseInt(this.Num.innerHTML) + 1;
         const WareAmount = parseInt(localStorage.getItem(`cartWare${id}`)) + 1;
         localStorage.setItem(`cartWare${id}`, WareAmount.toString());
-        
-        this.Num.innerHTML = (parseInt(this.Num.innerHTML) + 1).toString();
 
+        this.Num.innerHTML = num.toString();
+
+        {
+            const checkoutButton = document.getElementById('check-out-btn');
+
+            if(checkoutButton !== null && num > 0) {
+                
+                checkoutButton.onclick = () => location.href = 'checkout.html';;
+                checkoutButton.classList.remove('btn-secondary');
+                checkoutButton.classList.add('btn-success');
+            }
+        }
     }
     static removeWare(id) {
+        let num = parseInt(this.Num.innerHTML);
         const WareAmount = parseInt(localStorage.getItem(`cartWare${id}`));
         if (WareAmount !== 0) {
             localStorage.setItem(`cartWare${id}`, Math.max(WareAmount - 1).toString());
-            this.Num.innerHTML = (parseInt(this.Num.innerHTML) - 1).toString();
+            num -= 1;
+            this.Num.innerHTML = num.toString();
+        }
+        const checkoutButton = document.getElementById('check-out-btn');
+        if (checkoutButton !== null && num === 0) {
+            
+            checkoutButton.onclick = null;
+            checkoutButton.classList.remove('btn-success');
+            checkoutButton.classList.add('btn-secondary');
         }
     }
 
@@ -368,8 +395,8 @@ class Cart {
         }
         return userCart;
     }
-    static assignElement(element,element2) {
-        if(element) {
+    static assignElement(element, element2) {
+        if (element) {
             const element = new Audio('https://klohger.github.io/media/JAVA_01.ogg');
             element.addEventListener("canplaythrough", (event) => {
                 /* the audio is now playable; play it if permissions allow */
@@ -382,10 +409,10 @@ class Cart {
         }
     }
     static createElements() {
-        Cart.cart = Cart.items.filter((value,index,arr) => {
+        Cart.cart = Cart.items.filter((value, index, arr) => {
             return value.amount !== 0;
         });
-        
+
         const createElementThreads = [];
         for (let index = 0; index < Cart.cart.length; index++) {
             createElementThreads.push(Cart.cart[index].createElement());
@@ -395,7 +422,7 @@ class Cart {
         }
     }
     static async createCheckoutElements() {
-        Cart.cart = Cart.items.filter((value,index,arr) => {
+        Cart.cart = Cart.items.filter((value, index, arr) => {
             return value.amount !== 0;
         });
         const createElementThreads = [];

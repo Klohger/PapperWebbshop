@@ -61,7 +61,7 @@
         params.get('firstname') + 
         ' för att du köper på PaperBoys!\nDin order är:\n' + 
         Cart.items.filter((value) => {return value.amount != 0}).reduce((acc,curr) => {
-            return acc + curr.amount + ' x ' + curr.ware.name + '\t\t' + Ware.formatter.format(curr.amount * curr.ware.price) + '\n';
+            return acc + curr.amount + 'x ' + curr.ware.name + '\t\t' + Ware.formatter.format(curr.amount * curr.ware.price) + '\n';
         },'') + 
         '\nTotal\t\t' + Ware.formatter.format(Cart.CalculateMoneySum()) + ( params2 ? '\n:)' : '');
         
