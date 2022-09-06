@@ -81,7 +81,7 @@ class Ware {
                             button.onclick = () => {
                                 Cart.addWare(self.id);
                                 document.getElementById('popup').hidden = false;
-                                setTimeout(()=> document.getElementById('popup').hidden = true, 1000)
+                                setTimeout(()=> document.getElementById('popup').hidden = true, 1000);
                             } 
                             textCenter.appendChild(button);
                         }
