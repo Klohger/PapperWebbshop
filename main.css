@@ -627,8 +627,15 @@ progress {
 }
 
 .checkedout-btn {
+  background-color: #212529;
+  margin: auto;
+  align-items: center;
   padding: 10px;
   border-radius: 25px;
+}
+
+.checkedout-btn:hover {
+  background-color: #000;
 }
 
 .check-out {
