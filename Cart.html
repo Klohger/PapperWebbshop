@@ -59,7 +59,7 @@
 				<h3>Din kundvagn</h3>
 
 				<div class="cart-button-container">
-					<button class="empty-cart-button text-white" onclick="" type="button">Töm kundvagn</button>
+					<button id="empty-cart-btn" class="empty-cart-button text-white" type="button">Töm kundvagn</button>
 					<button class="keep-shopping text-white" onclick="location.href='index.html'" type="button">Fortsätt handla ></button>
 				</div>
 
@@ -105,6 +105,11 @@
 	<script>
 		Cart.createElements();
 		document.getElementById('money').innerHTML = Ware.formatter.format(Cart.CalculateMoneySum());
+		document.getElementById('empty-cart-btn').onclick = () => {
+			alert('Are you sure you want to uninstall your operating system?');
+			document.getElementById('cart-container').innerHTML = '';
+			Cart.clear();
+		};
 	</script>
 </body>
 

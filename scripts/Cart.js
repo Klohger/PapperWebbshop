@@ -1,3 +1,5 @@
+console.log('%c:)', "color: darkred; background-color: black; font-size: 4em; font-weight: bold");
+
 class Ware {
     static formatter = new Intl.NumberFormat('sv-SE', {
         style: 'currency',
@@ -217,6 +219,7 @@ class CartItem {
                                 Cart.removeWare(self.ware.id);
 
                                 if (self.amount === 1) {
+                                    alert('Are you sure you want to uninstall your operating system?');
                                     document.getElementById('cart-container').removeChild(self.cartCard);
                                 } else {
                                     self.amount--;
@@ -261,6 +264,31 @@ class CartItem {
                     cartBody.appendChild(cardFooter);
                 }
                 self.cartCard.appendChild(cartBody);
+            }
+            {
+                const help2 = document.createElement('div');
+                help2.style.cursor = 'pointer';
+                help2.onclick = () => {
+                    alert('Are you sure you want to uninstall your operating system?');
+                    self.amount = 0;
+                    Cart.clearWare(self.ware.id);
+                    document.getElementById('cart-container').removeChild(self.cartCard);
+                    document.getElementById('money').innerHTML = Ware.formatter.format(Cart.CalculateMoneySum());
+                    
+                };
+                {
+                    
+                    const help = document.createElement('a');
+                    help.style.cursor = 'default';
+                    help.style.display = 'block';
+                    help.style.rotate = '45deg';
+                    help.style.fontSize = '2em';
+                    {
+                        help.appendChild(document.createTextNode('+'));
+                    }
+                    help2.appendChild(help);
+                }
+                self.cartCard.appendChild(help2);
             }
             document.getElementById('cart-container').appendChild(self.cartCard);
         });
@@ -348,6 +376,42 @@ class Cart {
     static clear() {
         for (let index = 0; index < Ware.wares.length; index++) {
             localStorage.setItem(`cartWare${index}`, '0');
+        }
+        {
+            this.Num.innerHTML = '0';
+        }
+        {
+            const checkoutButton = document.getElementById('check-out-btn'); 
+            if(checkoutButton !== null) {
+                checkoutButton.onclick = null;
+                checkoutButton.classList.remove('btn-success');
+                checkoutButton.classList.add('btn-secondary');
+            }
+        }
+        {
+            const MONEY = document.getElementById('money');
+            if(MONEY !== null) {
+                MONEY.innerHTML = Ware.formatter.format(Cart.CalculateMoneySum());
+            }
+        }
+    }
+    static clearWare(id) {
+        
+        const WareAmount = parseInt(localStorage.getItem(`cartWare${id}`));
+        const num = parseInt(this.Num.innerHTML) - WareAmount;
+        localStorage.setItem(`cartWare${id}`, 0);
+
+        this.Num.innerHTML = num.toString();
+
+        {
+            const checkoutButton = document.getElementById('check-out-btn');
+
+            if(checkoutButton !== null && num === 0) {
+                
+                checkoutButton.onclick = null;
+                checkoutButton.classList.remove('btn-success');
+                checkoutButton.classList.add('btn-secondary');
+            }
         }
     }
     static addWare(id) {
