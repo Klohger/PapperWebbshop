@@ -1,6 +1,8 @@
 console.log('%c:)', "color: darkred; background-color: black; font-size: 4em; font-weight: bold");
 
+// stores product information
 class Ware {
+    // used to format price
     static formatter = new Intl.NumberFormat('sv-SE', {
         style: 'currency',
         currency: 'SEK',
@@ -9,7 +11,8 @@ class Ware {
         //minimumFractionDigits: 0, // (this suffices for whole numbers, but will print 2500.10 as $2,500.1)
         //maximumFractionDigits: 0, // (causes 2500.99 to be printed as $2,501)
     });
-    static wares = [];
+    // this array stores all the registered wares of the website 
+    static registeredWares = [];
     constructor(id, imageUrl, name, price, salePrice) {
         this.id = id;
         this.imageUrl = imageUrl;
@@ -18,17 +21,18 @@ class Ware {
         this.salePrice = salePrice;
         this.cardContainer = null;
     }
-    static AddToWares(imageUrl, name, price, salePrice) {
-        Ware.wares[Ware.wares.length] = new Ware(Ware.wares.length, imageUrl, name, price, salePrice);
+    // creates Ware object and adds it to the registered wares array
+    static Register(imageUrl, name, price, salePrice) {
+        Ware.registeredWares[Ware.registeredWares.length] = new Ware(Ware.registeredWares.length, imageUrl, name, price, salePrice);
     }
-    async updateElement() {
 
-    }
+    // creates an html element of this specific ware
+    // and appends it inside a card container.
+    // this is used to dynamically add ware to index.html 
     async createElement() {
         const self = this;
         return new Promise(function () {
             self.cardContainer = document.createElement("div");
-            document.getElementById('card-container').appendChild(self.cardContainer);
             self.cardContainer.classList.add('col', 'mb-5');
             {
                 const card = document.createElement("div");
@@ -93,14 +97,15 @@ class Ware {
                 }
                 self.cardContainer.appendChild(card);
             }
-
+            document.getElementById('card-container').appendChild(self.cardContainer);
 
         });
     }
+    // this runs Ware.createElement() for every registered ware 
     static createElements() {
         const createElementThreads = [];
-        for (let index = 0; index < Ware.wares.length; index++) {
-            createElementThreads.push(Ware.wares[index].createElement());
+        for (let index = 0; index < Ware.registeredWares.length; index++) {
+            createElementThreads.push(Ware.registeredWares[index].createElement());
         }
         for (let index = 0; index < createElementThreads.length; index++) {
             Promise.race(createElementThreads);
@@ -109,11 +114,12 @@ class Ware {
     }
 }
 
+// stores a ware and an amount
 class CartItem {
     ware;
-    amount = 1;
+    amount = 0;
     constructor(id, amount) {
-        this.ware = Ware.wares[id];
+        this.ware = Ware.registeredWares[id];
         this.amount = amount;
         this.cartCard = null;
     }
@@ -152,6 +158,7 @@ class CartItem {
             self.cartCard.style.flexWrap = 'nowrap';
             self.cartCard.style.alignItems = 'center';
             self.cartCard.style.marginBottom = '1rem';
+            self.cartCard.style.justifyContent = 'center';
             {
                 const image = document.createElement("img");
                 image.classList.add('cart-img');
@@ -164,11 +171,11 @@ class CartItem {
             }
             {
                 const cartBody = document.createElement('div');
-                cartBody.classList.add('card-body', 'p-4');
+                cartBody.classList.add('card-body');
                 cartBody.style.padding = "1rem !important";
                 {
                     const cartBody2 = document.createElement('div');
-                    cartBody2.classList.add('card-body', 'p-4');
+                    cartBody2.classList.add('card-body');
                     cartBody2.style.padding = "1rem !important";
                     {
                         const textCenter = document.createElement('div');
@@ -178,6 +185,7 @@ class CartItem {
                         {
                             const name = document.createElement('h5');
                             name.classList.add('fw-bolder');
+                            //name.style.fontSize = 'calc(12px + 2vw)';
                             {
                                 name.appendChild(document.createTextNode(self.ware.name)); // NAME
                             }
@@ -188,6 +196,7 @@ class CartItem {
                             {
 
                                 const price = document.createElement('span');
+                                //price.style.fontSize = 'calc(12px + 1vw)';
                                 {
                                     price.appendChild(document.createTextNode(' ' + Ware.formatter.format(self.ware.price * self.amount) + ' ')); // price
                                 }
@@ -203,7 +212,7 @@ class CartItem {
                 }
                 {
                     const cardFooter = document.createElement('div');
-                    cardFooter.classList.add("card-footer", "p-4", "pt-0", "border-top-0", "bg-transparent");
+                    cardFooter.classList.add("card-footer", "pt-0", "border-top-0", "bg-transparent");
                     cardFooter.style.padding = '1rem';
                     {
                         const textCenter = document.createElement('div');
@@ -473,7 +482,7 @@ class CartItem {
                         help.style.cursor = 'default';
                         help.style.display = 'block';
                         help.style.rotate = '45deg';
-                        help.style.fontSize = '3em';
+                        help.style.fontSize = 'calc(12px + 1.5vw)';
                         {
                             help.appendChild(document.createTextNode('+'));
                         }
@@ -711,7 +720,7 @@ class CartItem {
 class Cart {
     static CalculateSum() {
         let sum = 0;
-        for (let index = 0; index < Ware.wares.length; index++) {
+        for (let index = 0; index < Ware.registeredWares.length; index++) {
             sum += parseInt(localStorage.getItem(`cartWare${index}`));
         }
         Cart.Num.innerHTML = sum.toString();
@@ -732,7 +741,7 @@ class Cart {
     static Num = document.getElementById('cart-num');
     static init() {
         let sum = 0;
-        for (let index = 0; index < Ware.wares.length; index++) {
+        for (let index = 0; index < Ware.registeredWares.length; index++) {
             const count = localStorage.getItem(`cartWare${index}`);
             const intCount = parseInt(count);
             if (count === null || intCount === NaN || intCount < 0) {
@@ -754,7 +763,7 @@ class Cart {
 
     }
     static clear() {
-        for (let index = 0; index < Ware.wares.length; index++) {
+        for (let index = 0; index < Ware.registeredWares.length; index++) {
             localStorage.setItem(`cartWare${index}`, '0');
         }
         {
@@ -833,7 +842,7 @@ class Cart {
     static get items() {
         const userCart = [];
 
-        for (let index = 0; index < Ware.wares.length; index++) {
+        for (let index = 0; index < Ware.registeredWares.length; index++) {
             const item = new CartItem(index, parseInt(localStorage.getItem(`cartWare${index}`)));
             userCart.push(item);
         }
@@ -880,17 +889,17 @@ class Cart {
     }
 }
 
-Ware.AddToWares('paper.png', 'A0', 3);
-Ware.AddToWares('paper.png', 'A1', 1);
-Ware.AddToWares('paper.png', 'A2', 0.5);
-Ware.AddToWares('paper.png', 'A3', 0.25);
-Ware.AddToWares('paper.png', 'A4', 0.1);
-Ware.AddToWares('paper.png', 'A5', 0.1);
-Ware.AddToWares('paper.png', 'A6', 0.05);
-Ware.AddToWares('paper.png', 'A7', 0.05);
-Ware.AddToWares('paper.png', 'A8', 0.05);
-Ware.AddToWares('pen.png', 'Penna', 20);
-Ware.AddToWares('eraser.png', 'Sudd', 12);
-Ware.AddToWares('ruler.png', 'Linjal', 25);
+Ware.Register('paper.png', 'A0', 3);
+Ware.Register('paper.png', 'A1', 1);
+Ware.Register('paper.png', 'A2', 0.5);
+Ware.Register('paper.png', 'A3', 0.25);
+Ware.Register('paper.png', 'A4', 0.1);
+Ware.Register('paper.png', 'A5', 0.1);
+Ware.Register('paper.png', 'A6', 0.05);
+Ware.Register('paper.png', 'A7', 0.05);
+Ware.Register('paper.png', 'A8', 0.05);
+Ware.Register('pen.png', 'Penna', 20);
+Ware.Register('eraser.png', 'Sudd', 12);
+Ware.Register('ruler.png', 'Linjal', 25);
 
 Cart.init();
