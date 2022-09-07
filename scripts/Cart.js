@@ -1,3 +1,4 @@
+// :)
 console.log('%c:)', "color: darkred; background-color: black; font-size: 4em; font-weight: bold");
 
 // stores product information
