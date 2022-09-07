@@ -122,7 +122,12 @@
 									<div style="margin-top:1rem">
 										<a class="btn btn-light" onclick = "
 											{
-												document.getElementById('cart-container').innerHTML = '';
+												Array.from(
+													document.getElementsByClassName('funny-cart-moment')
+												)
+												.forEach(
+													(element) => {element.remove()}
+												);
 												Cart.clear();
 												document.getElementById('empty-cart-popup').hidden = true;
 											}">Ja</a>

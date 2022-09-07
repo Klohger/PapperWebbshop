@@ -154,6 +154,7 @@ class CartItem {
 
         return new Promise(() => {
             const cartCard = document.createElement("div");
+            cartCard.classList.add('funny-cart-moment');
             cartCard.style.border = "1px solid rgba(0,0,0,0.125)";
             cartCard.style.flexDirection = 'row';
             cartCard.style.display = 'flex';
