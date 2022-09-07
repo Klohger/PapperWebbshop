@@ -137,24 +137,28 @@
 
 				<!-- Checkout content HERE -->
 
-				<div id="cart-container"
+				<div 
+					
 					style="flex-wrap:nowrap; flex-direction:column; align-items:center; padding: 1rem;"
 					class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-
-				</div>
-				<div
-					style="margin: auto; border: 1px solid rgba(0, 0, 0, 0.125); flex-flow: row nowrap; display: flex; width: 50%; flex: inherit; align-items: center; margin-bottom: 1rem;">
-					
-					<div class="card-body p-4">
+					<div id="cart-container" style="width: auto;">
+						<div
+						id="total"
+						style="margin: auto; border: 1px solid rgba(0, 0, 0, 0.125); flex-flow: row nowrap; display: flex; /*width: 50%;*/ flex: inherit; align-items: center; margin-bottom: 1rem;">
+						
 						<div class="card-body p-4">
-							<div class="text-center" style="display: flex;">
-								<h5 class="fw-bolder">Total</h5>
-								<span style="margin-right: 0px;
-								margin-left: auto;" id="money">0</span>
+							<div class="card-body p-4">
+								<div class="text-center" style="display: flex;">
+									<h5 class="fw-bolder">Total</h5>
+									<span style="margin-right: 0px;
+									margin-left: auto;" id="money">0</span>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
+			</div>
+				
 
 				<div class="cart-button-container">
 					<button id="check-out-btn" class="cart-button check-out btn-success" onclick="location.href='checkout.html'"
@@ -176,7 +180,7 @@
 	<script src="scripts/Cart.js"></script>
 	<script>
 		Cart.createElements();
-		document.getElementById('money').innerHTML = Ware.formatter.format(Cart.CalculateMoneySum());
+		document.getElementById('money').innerHTML = Ware.formatter.format(Cart.calculateCartCost());
 	</script>
 </body>
 

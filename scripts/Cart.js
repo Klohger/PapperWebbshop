@@ -683,7 +683,7 @@ class CartItem {
                 }
                 cartCard.appendChild(pain251551);
             }
-            document.getElementById('cart-container').appendChild(cartCard);
+            document.getElementById('cart-container').insertBefore(cartCard, document.getElementById('total'));
         });
 
     }
@@ -781,7 +781,6 @@ class Cart {
                 emptyCartBtn.hidden = true;
             }
         }
-
 
     }
     // clears the cart and modify html elements that should be affected by the sudden lack of items in the cart 

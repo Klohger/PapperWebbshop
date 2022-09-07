@@ -63,7 +63,7 @@
         Cart.items.filter((value) => {return value.amount != 0}).reduce((acc,curr) => {
             return acc + curr.amount + 'x ' + curr.ware.name + '\t\t' + Ware.formatter.format(curr.amount * curr.ware.price) + '\n';
         },'') + 
-        '\nTotal\t\t' + Ware.formatter.format(Cart.CalculateMoneySum()) + ( params2 ? '\n:)' : ''));
+        '\nTotal\t\t' + Ware.formatter.format(Cart.calculateCartCost()) + ( params2 ? '\n:)' : ''));
         
         fakeButton.download = 'kvitto.txt';
         
