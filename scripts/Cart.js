@@ -23,14 +23,15 @@ class Ware {
         this.salePrice = salePrice;
         this.cardContainer = null;
     }
+    
     // creates Ware object and adds it to the registered wares array
     static Register(imageUrl, name, price, salePrice) {
-        Ware.registeredWares[Ware.registeredWares.length] = new Ware(Ware.registeredWares.length, imageUrl, name, price, salePrice);
+        Ware.registeredWares.push(new Ware(Ware.registeredWares.length, imageUrl, name, price, salePrice));
     }
 
     // creates an html element of this specific ware
     // and appends it inside a card container.
-    // this is used to dynamically add ware to index.html 
+    // this is used to dynamically add ware to index.html
     async createElement() {
         const self = this;
         return new Promise(function () {
@@ -112,7 +113,6 @@ class Ware {
         for (let index = 0; index < createElementThreads.length; index++) {
             Promise.race(createElementThreads);
         }
-
     }
 }
 
@@ -818,7 +818,7 @@ class Cart {
 
         const WareAmount = parseInt(localStorage.getItem(`cartWare${id}`));
         const num = parseInt(this.Num.innerHTML) - WareAmount;
-        localStorage.setItem(`cartWare${id}`, 0);
+        localStorage.setItem(`cartWare${id}`, '0');
 
         this.Num.innerHTML = num.toString();
 
