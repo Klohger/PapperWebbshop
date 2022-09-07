@@ -227,11 +227,11 @@ class CartItem {
                                 const minusButton = document.createElement('a');
                                 minusButton.classList.add('btn', 'btn-outline-dark', 'mt-auto', 'cart-btn');
                                 minusButton.onclick = () => {
-                                    
+
 
                                     if (self.amount === 1) {
                                         document.getElementById(`popup-bruh-${self.ware.id}`).hidden = false;
-                                        
+
                                     } else {
                                         Cart.removeWare(self.ware.id);
                                         self.amount--;
@@ -406,7 +406,7 @@ class CartItem {
                                                 popup.hidden = true;
                                                 self.amount = 0;
                                                 document.getElementById('cart-container').removeChild(self.cartCard);
-                                                
+
                                                 document.getElementById('money').innerHTML = Ware.formatter.format(Cart.CalculateMoneySum());
                                             }
                                             {
@@ -753,13 +753,21 @@ class Cart {
         if (Cart.Num !== null) {
             Cart.Num.innerHTML = sum.toString();
         }
-        const checkoutButton = document.getElementById('check-out-btn');
-        if (checkoutButton !== null && sum === 0) {
 
-            checkoutButton.onclick = null;
-            checkoutButton.classList.remove('btn-success');
-            checkoutButton.classList.add('btn-secondary');
+        if (sum === 0) {
+            const checkoutButton = document.getElementById('check-out-btn');
+            if (checkoutButton !== null) {
+
+                checkoutButton.onclick = null;
+                checkoutButton.classList.remove('btn-success');
+                checkoutButton.classList.add('btn-secondary');
+            }
+            const emptyCartBtn = document.getElementById('empty-cart-btn');
+            if (emptyCartBtn !== null) {
+                emptyCartBtn.hidden = true;
+            }
         }
+
 
     }
     static clear() {
@@ -778,6 +786,12 @@ class Cart {
             }
         }
         {
+            const emptyCartBtn = document.getElementById('empty-cart-btn');
+            if (emptyCartBtn !== null) {
+                emptyCartBtn.hidden = true;
+            }
+        }
+        {
             const MONEY = document.getElementById('money');
             if (MONEY !== null) {
                 MONEY.innerHTML = Ware.formatter.format(Cart.CalculateMoneySum());
@@ -793,14 +807,21 @@ class Cart {
         this.Num.innerHTML = num.toString();
 
         {
-            const checkoutButton = document.getElementById('check-out-btn');
 
-            if (checkoutButton !== null && num === 0) {
+            if (num === 0) {
+                const checkoutButton = document.getElementById('check-out-btn');
+                if (checkoutButton !== null) {
 
-                checkoutButton.onclick = null;
-                checkoutButton.classList.remove('btn-success');
-                checkoutButton.classList.add('btn-secondary');
+                    checkoutButton.onclick = null;
+                    checkoutButton.classList.remove('btn-success');
+                    checkoutButton.classList.add('btn-secondary');
+                }
+                const emptyCartBtn = document.getElementById('empty-cart-btn');
+                if (emptyCartBtn !== null) {
+                    emptyCartBtn.hidden = true;
+                }
             }
+
         }
     }
     static addWare(id) {
@@ -811,16 +832,22 @@ class Cart {
 
         this.Num.innerHTML = num.toString();
 
-        {
-            const checkoutButton = document.getElementById('check-out-btn');
 
-            if (checkoutButton !== null && num > 0) {
+        if (num > 0) {
+            const checkoutButton = document.getElementById('check-out-btn');
+            if (checkoutButton !== null) {
 
                 checkoutButton.onclick = () => location.href = 'checkout.html';;
                 checkoutButton.classList.remove('btn-secondary');
                 checkoutButton.classList.add('btn-success');
             }
+            const emptyCartBtn = document.getElementById('empty-cart-btn');
+            if (emptyCartBtn !== null) {
+                emptyCartBtn.hidden = false;
+            }
         }
+
+
     }
     static removeWare(id) {
         let num = parseInt(this.Num.innerHTML);
@@ -830,13 +857,21 @@ class Cart {
             num -= 1;
             this.Num.innerHTML = num.toString();
         }
-        const checkoutButton = document.getElementById('check-out-btn');
-        if (checkoutButton !== null && num === 0) {
 
-            checkoutButton.onclick = null;
-            checkoutButton.classList.remove('btn-success');
-            checkoutButton.classList.add('btn-secondary');
+        if (num === 0) {
+            const checkoutButton = document.getElementById('check-out-btn');
+            if (checkoutButton !== null) {
+
+                checkoutButton.onclick = null;
+                checkoutButton.classList.remove('btn-success');
+                checkoutButton.classList.add('btn-secondary');
+            }
+            const emptyCartBtn = document.getElementById('empty-cart-btn');
+            if (emptyCartBtn !== null) {
+                emptyCartBtn.hidden = true;
+            }
         }
+
     }
 
     static get items() {
