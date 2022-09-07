@@ -13,6 +13,7 @@ class Ware {
     });
     // this array stores all the registered wares of the website 
     static registeredWares = [];
+
     constructor(id, imageUrl, name, price, salePrice) {
         this.id = id;
         this.imageUrl = imageUrl;
@@ -121,10 +122,12 @@ class CartItem {
     constructor(id, amount) {
         this.ware = Ware.registeredWares[id];
         this.amount = amount;
-        this.cartCard = null;
     }
 
-    cartCard = null;
+    
+    // creates an html element of this specific Cart item.
+    // and appends it inside 'cart-container'.
+    // this is used to show items in your cart in Cart.html
     async createElement() {
         /*
         <div style="border: 1px solid rgba(0,0,0,0.125);flex-direction: row;display: flex;width: fit-content;flex: inherit; flex-wrap: nowrap;align-items: center; margin-bottom: 1rem !important">
@@ -149,16 +152,16 @@ class CartItem {
         const self = this;
 
         return new Promise(() => {
-            self.cartCard = document.createElement("div");
-            self.cartCard.style.border = "1px solid rgba(0,0,0,0.125)";
-            self.cartCard.style.flexDirection = 'row';
-            self.cartCard.style.display = 'flex';
-            self.cartCard.style.width = 'fit-content';
-            self.cartCard.style.flex = 'inherit';
-            self.cartCard.style.flexWrap = 'nowrap';
-            self.cartCard.style.alignItems = 'center';
-            self.cartCard.style.marginBottom = '1rem';
-            self.cartCard.style.justifyContent = 'center';
+            const cartCard = document.createElement("div");
+            cartCard.style.border = "1px solid rgba(0,0,0,0.125)";
+            cartCard.style.flexDirection = 'row';
+            cartCard.style.display = 'flex';
+            cartCard.style.width = 'fit-content';
+            cartCard.style.flex = 'inherit';
+            cartCard.style.flexWrap = 'nowrap';
+            cartCard.style.alignItems = 'center';
+            cartCard.style.marginBottom = '1rem';
+            cartCard.style.justifyContent = 'center';
             {
                 const image = document.createElement("img");
                 image.classList.add('cart-img');
@@ -167,7 +170,7 @@ class CartItem {
                 {
 
                 }
-                self.cartCard.appendChild(image);
+                cartCard.appendChild(image);
             }
             {
                 const cartBody = document.createElement('div');
@@ -236,10 +239,10 @@ class CartItem {
                                         Cart.removeWare(self.ware.id);
                                         self.amount--;
                                     }
-                                    self.cartCard.children[1].children[0].children[0].children[1].children[0].innerHTML = ' ' + Ware.formatter.format(self.ware.price * self.amount) + ' ';
+                                    cartCard.children[1].children[0].children[0].children[1].children[0].innerHTML = ' ' + Ware.formatter.format(self.ware.price * self.amount) + ' ';
 
-                                    self.cartCard.children[1].children[1].children[0].children[1].innerHTML = self.amount.toString();
-                                    document.getElementById('money').innerHTML = Ware.formatter.format(Cart.CalculateMoneySum());
+                                    cartCard.children[1].children[1].children[0].children[1].innerHTML = self.amount.toString();
+                                    document.getElementById('money').innerHTML = Ware.formatter.format(Cart.calculateCartCost());
                                 }
                                 {
                                     minusButton.appendChild(document.createTextNode('-'))
@@ -405,9 +408,9 @@ class CartItem {
                                                 Cart.removeWare(self.ware.id);
                                                 popup.hidden = true;
                                                 self.amount = 0;
-                                                document.getElementById('cart-container').removeChild(self.cartCard);
+                                                document.getElementById('cart-container').removeChild(cartCard);
 
-                                                document.getElementById('money').innerHTML = Ware.formatter.format(Cart.CalculateMoneySum());
+                                                document.getElementById('money').innerHTML = Ware.formatter.format(Cart.calculateCartCost());
                                             }
                                             {
                                                 yes.appendChild(document.createTextNode('Ja'));
@@ -451,9 +454,9 @@ class CartItem {
                                 self.amount++;
 
 
-                                self.cartCard.children[1].children[0].children[0].children[1].children[0].innerHTML = ' ' + Ware.formatter.format(self.ware.price * self.amount) + ' ';
-                                self.cartCard.children[1].children[1].children[0].children[1].innerHTML = self.amount.toString();
-                                document.getElementById('money').innerHTML = Ware.formatter.format(Cart.CalculateMoneySum());
+                                cartCard.children[1].children[0].children[0].children[1].children[0].innerHTML = ' ' + Ware.formatter.format(self.ware.price * self.amount) + ' ';
+                                cartCard.children[1].children[1].children[0].children[1].innerHTML = self.amount.toString();
+                                document.getElementById('money').innerHTML = Ware.formatter.format(Cart.calculateCartCost());
                             }
                             {
                                 plusButton.appendChild(document.createTextNode('+'))
@@ -464,7 +467,7 @@ class CartItem {
                     }
                     cartBody.appendChild(cardFooter);
                 }
-                self.cartCard.appendChild(cartBody);
+                cartCard.appendChild(cartBody);
             }
             {
                 const pain251551 = document.createElement('div');
@@ -649,8 +652,8 @@ class CartItem {
                                     popup.hidden = true;
                                     self.amount = 0;
                                     Cart.clearWare(self.ware.id);
-                                    document.getElementById('cart-container').removeChild(self.cartCard);
-                                    document.getElementById('money').innerHTML = Ware.formatter.format(Cart.CalculateMoneySum());
+                                    document.getElementById('cart-container').removeChild(cartCard);
+                                    document.getElementById('money').innerHTML = Ware.formatter.format(Cart.calculateCartCost());
                                 }
                                 {
                                     yes.appendChild(document.createTextNode('Ja'));
@@ -677,12 +680,14 @@ class CartItem {
 
                     pain251551.appendChild(popup);
                 }
-                self.cartCard.appendChild(pain251551);
+                cartCard.appendChild(pain251551);
             }
-            document.getElementById('cart-container').appendChild(self.cartCard);
+            document.getElementById('cart-container').appendChild(cartCard);
         });
 
     }
+
+    // the same thing as above, but for checkout.html
     async createCheckoutElement() {
         /* 
         <p>
@@ -717,15 +722,13 @@ class CartItem {
     }
 }
 
+// this class stores a bunch of static variables and functions related to the cart
 class Cart {
-    static CalculateSum() {
-        let sum = 0;
-        for (let index = 0; index < Ware.registeredWares.length; index++) {
-            sum += parseInt(localStorage.getItem(`cartWare${index}`));
-        }
-        Cart.Num.innerHTML = sum.toString();
-    }
-    static CalculateMoneySum() {
+    // reference to the element showing the number of items in the cart
+    static Num = document.getElementById('cart-num');
+
+    // calculates the cost of the cart and returns it
+    static calculateCartCost() {
         let sum = 0;
         for (let index = 0; index < Cart.items.length; index++) {
 
@@ -737,10 +740,14 @@ class Cart {
         }
         return sum;
     }
-    static cart = Cart.items;
-    static Num = document.getElementById('cart-num');
+    
     static init() {
+
         let sum = 0;
+        
+        // calculates amount of items in cart 
+        // and checks if all wares in the cart have a valid amount 
+        // (if not, sets to 0) 
         for (let index = 0; index < Ware.registeredWares.length; index++) {
             const count = localStorage.getItem(`cartWare${index}`);
             const intCount = parseInt(count);
@@ -750,11 +757,15 @@ class Cart {
                 sum += intCount;
             }
         }
+        // if Cart.Num exists on this page, assign the sum to it
         if (Cart.Num !== null) {
             Cart.Num.innerHTML = sum.toString();
         }
 
+        
         if (sum === 0) {
+            // if the checkout-button exists on this page and the sum is 0,
+            // make it non-clickable
             const checkoutButton = document.getElementById('check-out-btn');
             if (checkoutButton !== null) {
 
@@ -762,6 +773,8 @@ class Cart {
                 checkoutButton.classList.remove('btn-success');
                 checkoutButton.classList.add('btn-secondary');
             }
+            // if the empty cart button exists on this page and the sum is 0,
+            // hide the button, since the cart is empty
             const emptyCartBtn = document.getElementById('empty-cart-btn');
             if (emptyCartBtn !== null) {
                 emptyCartBtn.hidden = true;
@@ -770,6 +783,8 @@ class Cart {
 
 
     }
+    // clears the cart and modify html elements that should be affected by the sudden lack of items in the cart 
+    // (checkout button should be non-clickable, empty cart button shouldn't be visible, total cost should be 0.00kr, etc.)
     static clear() {
         for (let index = 0; index < Ware.registeredWares.length; index++) {
             localStorage.setItem(`cartWare${index}`, '0');
@@ -794,10 +809,11 @@ class Cart {
         {
             const MONEY = document.getElementById('money');
             if (MONEY !== null) {
-                MONEY.innerHTML = Ware.formatter.format(Cart.CalculateMoneySum());
+                MONEY.innerHTML = Ware.formatter.format(Cart.calculateCartCost());
             }
         }
     }
+    // removes a specific ware from the cart and checks if html elements need to be modified (see comment over the function above)
     static clearWare(id) {
 
         const WareAmount = parseInt(localStorage.getItem(`cartWare${id}`));
@@ -824,6 +840,7 @@ class Cart {
 
         }
     }
+    // adds one of a ware to the cart
     static addWare(id) {
 
         const num = parseInt(this.Num.innerHTML) + 1;
@@ -849,6 +866,7 @@ class Cart {
 
 
     }
+    // removes one of a ware to the cart
     static removeWare(id) {
         let num = parseInt(this.Num.innerHTML);
         const WareAmount = parseInt(localStorage.getItem(`cartWare${id}`));
@@ -873,7 +891,7 @@ class Cart {
         }
 
     }
-
+    // creates an array of CartItems from localStorage (including those that have an amount of 0), and returns it. 
     static get items() {
         const userCart = [];
 
@@ -896,33 +914,37 @@ class Cart {
             location.href = 'index.html';
         }
     }
+    // runs CartItem.createElement() for all items in cart that have an amount larger than 0
     static createElements() {
-        Cart.cart = Cart.items.filter((value, index, arr) => {
+        const items = Cart.items.filter((value, index, arr) => {
             return value.amount !== 0;
         });
 
         const createElementThreads = [];
-        for (let index = 0; index < Cart.cart.length; index++) {
-            createElementThreads.push(Cart.cart[index].createElement());
+        for (let index = 0; index < items.length; index++) {
+            createElementThreads.push(items[index].createElement());
         }
         for (let index = 0; index < createElementThreads.length; index++) {
             Promise.race(createElementThreads);
         }
     }
+    // runs CartItem.createCheckoutElement() for all items in cart that have an amount larger than 0
     static async createCheckoutElements() {
-        Cart.cart = Cart.items.filter((value, index, arr) => {
+        const items = Cart.items.filter((value, index, arr) => {
             return value.amount !== 0;
         });
         const createElementThreads = [];
-        for (let index = 0; index < Cart.cart.length; index++) {
-            createElementThreads.push(Cart.cart[index].createCheckoutElement());
+        for (let index = 0; index < items.length; index++) {
+            createElementThreads.push(items[index].createCheckoutElement());
         }
         for (let index = 0; index < createElementThreads.length; index++) {
             Promise.race(createElementThreads);
         }
-        document.getElementById('money').innerHTML = Ware.formatter.format(Cart.CalculateMoneySum());
+        document.getElementById('money').innerHTML = Ware.formatter.format(Cart.calculateCartCost());
     }
 }
+
+// Registers wares
 
 Ware.Register('paper.png', 'A0', 3);
 Ware.Register('paper.png', 'A1', 1);
@@ -937,4 +959,5 @@ Ware.Register('pen.png', 'Penna', 20);
 Ware.Register('eraser.png', 'Sudd', 12);
 Ware.Register('ruler.png', 'Linjal', 25);
 
+// initialises cart
 Cart.init();
