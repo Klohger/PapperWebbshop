@@ -78,7 +78,15 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-12">
-                                                    <input type="submit" class="btn btn-success btn-send  pt-2 btn-block" value="Skicka">
+                                                    <button type="button" class="btn btn-success btn-send  pt-2 btn-block" onclick="
+                                                        {
+                                                            const form = document.forms['contact-form'].elements;
+                                                            const name = form['name'].value;
+                                                            const surname = form['surname'].value;
+                                                            const message = form['message'].value;
+
+                                                            window.location.href = 'mailto:anna.svenssonx@elev.ga.ntig.se?subject=Contact to PaperBoys&body=' + encodeURIComponent(message + '\n\n' + name + ' ' + surname);
+                                                        }">Skicka</button>
                                                 </div>
                                             </div>
                                         </div>
