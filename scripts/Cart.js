@@ -452,13 +452,16 @@ class CartItem {
                             const plusButton = document.createElement('a');
                             plusButton.classList.add('btn', 'btn-outline-dark', 'mt-auto', 'cart-btn');
                             plusButton.onclick = () => {
-                                Cart.addWare(self.ware.id);
-                                self.amount++;
+                                if(document.getElementById(`popup-bruh-${self.ware.id}`).hidden) {
+
+                                    Cart.addWare(self.ware.id);
+                                    self.amount++
 
 
-                                cartCard.children[1].children[0].children[0].children[1].children[0].innerHTML = ' ' + Ware.formatter.format(self.ware.price * self.amount) + ' ';
-                                cartCard.children[1].children[1].children[0].children[1].innerHTML = self.amount.toString();
-                                document.getElementById('money').innerHTML = Ware.formatter.format(Cart.calculateCartCost());
+                                    cartCard.children[1].children[0].children[0].children[1].children[0].innerHTML = ' ' + Ware.formatter.format(self.ware.price * self.amount) + ' ';
+                                    cartCard.children[1].children[1].children[0].children[1].innerHTML = self.amount.toString();
+                                    document.getElementById('money').innerHTML = Ware.formatter.format(Cart.calculateCartCost());
+                                }
                             }
                             {
                                 plusButton.appendChild(document.createTextNode('+'))
@@ -919,8 +922,9 @@ class Cart {
             }
             const total = document.getElementById('total');
             if(total !== null) {
-                total.hidden = false;
-                document.getElementById('empty-cart-txt').hidden = true;
+                
+                total.hidden = true;
+                document.getElementById('empty-cart-txt').hidden = false;
             }
         }
 
