@@ -18,7 +18,8 @@
 <body>
 	<div class="content">
 		<!-- Navigation-->
-		<nav style='z-index: 1000000000000000000000000000000000;' class="navbar navbar-expand-lg navbar-light bg-light fixed-navbar">
+		<nav style='z-index: 1000000000000000000000000000000000;'
+			class="navbar navbar-expand-lg navbar-light bg-light fixed-navbar">
 			<div class="container px-4 px-lg-5">
 				<a href="index.html" class="navbar-brand">PaperBoys</a>
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -60,8 +61,9 @@
 
 				<div class="cart-button-container">
 					<div>
-						<button id="empty-cart-btn" class="empty-cart-button text-white" type="button" onclick="document.getElementById('empty-cart-popup').hidden = false">Töm kundvagn</button>
-							<span hidden id="empty-cart-popup" style="
+						<button id="empty-cart-btn" class="empty-cart-button text-white" type="button"
+							onclick="document.getElementById('empty-cart-popup').hidden = false">Töm kundvagn</button>
+						<span hidden id="empty-cart-popup" style="
 							color: rgb(24, 24, 24);
 							outline: none;
 							box-sizing: border-box;
@@ -70,7 +72,7 @@
 							z-index: 1;
 							transform: translate(-12%,6%);
 							">
-								<span style="
+							<span style="
 								z-index: 1;
 								position: absolute;
 								width: 100%;
@@ -84,7 +86,7 @@
 								outline: none;
 								box-sizing: border-box;
 								color: rgb(24, 24, 24);"></span>
-								<span style="
+							<span style="
 								display: block;
 								position: relative;
 								white-space: normal;
@@ -96,7 +98,7 @@
 								outline: none;
 								box-sizing: border-box;
 								color: rgb(24, 24, 24);">
-									<span style="
+								<span style="
 									display: block;
 									color: rgb(255, 255, 255);
 									font-size: 0.8125rem;
@@ -106,7 +108,7 @@
 									white-space: normal;
 									text-transform: none;
 									text-align: center;">
-										<p color="white" type="body" style="
+									<p color="white" type="body" style="
 										margin: 0px;
 										color: rgb(255, 255, 255);
 										font-size: 0.8125rem;
@@ -116,11 +118,11 @@
 										white-space: normal;
 										text-transform: none;
 										text-align: center;">
-											Vill du verkligen<br>tömma kundvagnen?
-										</p>
-									</span>
-									<div style="margin-top:1rem">
-										<a class="btn btn-light" onclick = "
+										Vill du verkligen<br>tömma kundvagnen?
+									</p>
+								</span>
+								<div style="margin-top:1rem">
+									<a class="btn btn-light" onclick="
 											{
 												Array.from(
 													document.getElementsByClassName('funny-cart-moment')
@@ -131,43 +133,43 @@
 												Cart.clear();
 												document.getElementById('empty-cart-popup').hidden = true;
 											}">Ja</a>
-										<a class="btn btn-light" onclick="document.getElementById('empty-cart-popup').hidden = true;">Nej</a>
-									</div>
-								</span>
+									<a class="btn btn-light"
+										onclick="document.getElementById('empty-cart-popup').hidden = true;">Nej</a>
+								</div>
 							</span>
+						</span>
 					</div>
-					
-					<button class="keep-shopping text-white" onclick="location.href='index.html'" type="button">Fortsätt handla ></button>
+
+					<button class="keep-shopping text-white" onclick="location.href='index.html'" type="button">Fortsätt
+						handla ></button>
 				</div>
 
 				<!-- Checkout content HERE -->
 
-				<div 
-					
-					style="flex-wrap:nowrap; flex-direction:column; align-items:center; padding: 1rem;"
+				<div style="flex-wrap:nowrap; flex-direction:column; align-items:center; padding: 1rem;"
 					class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
 					<div id="cart-container" style="width: auto;">
-						<div
-						id="total"
-						style="margin: auto; border: 1px solid rgba(0, 0, 0, 0.125); flex-flow: row nowrap; display: flex; /*width: 50%;*/ flex: inherit; align-items: center; margin-bottom: 1rem;">
-						
-						<div class="card-body p-4">
+						<h5 hidden id="empty-cart-txt" class="text-secondary">Här var det tomt...</h4>
+						<div id="total" hidden
+							style="margin: auto; border: 1px solid rgba(0, 0, 0, 0.125); flex-flow: row nowrap; display: flex; /*width: 50%;*/ flex: inherit; align-items: center; margin-bottom: 1rem;">
+							
 							<div class="card-body p-4">
-								<div class="text-center" style="display: flex;">
-									<h5 class="fw-bolder">Total</h5>
-									<span style="margin-right: 0px;
-									margin-left: auto;" id="money">0</span>
+								<div class="card-body p-4">
+									<div class="text-center" style="display: flex;">
+										<h5 class="fw-bolder">Total</h5>
+										<span style="margin-right: 0px;
+										margin-left: auto;" id="money">0</span>
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-				
+
 
 				<div class="cart-button-container">
-					<button id="check-out-btn" class="cart-button check-out btn-success" onclick="location.href='checkout.html'"
-						type="button">Checka ut ></button>
+					<button id="check-out-btn" class="cart-button check-out btn-success"
+						onclick="location.href='checkout.html'" type="button">Checka ut ></button>
 				</div>
 			</div>
 

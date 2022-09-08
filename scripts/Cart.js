@@ -781,6 +781,17 @@ class Cart {
             if (emptyCartBtn !== null) {
                 emptyCartBtn.hidden = true;
             }
+            const total = document.getElementById('total');
+            if(total !== null) {
+                total.hidden = true;
+                document.getElementById('empty-cart-txt').hidden = false;
+            }
+        } else {
+            const total = document.getElementById('total');
+            if(total !== null) {
+                total.hidden = false;
+                document.getElementById('empty-cart-txt').hidden = true;
+            }
         }
 
     }
@@ -813,6 +824,13 @@ class Cart {
                 MONEY.innerHTML = Ware.formatter.format(Cart.calculateCartCost());
             }
         }
+        {
+            const total = document.getElementById('total');
+            if(total !== null) {
+                total.hidden = true;
+                document.getElementById('empty-cart-txt').hidden = false;
+            }
+        }
     }
     // removes a specific ware from the cart and checks if html elements need to be modified (see comment over the function above)
     static clearWare(id) {
@@ -836,6 +854,11 @@ class Cart {
                 const emptyCartBtn = document.getElementById('empty-cart-btn');
                 if (emptyCartBtn !== null) {
                     emptyCartBtn.hidden = true;
+                }
+                const total = document.getElementById('total');
+                if(total !== null) {
+                    total.hidden = true;
+                    document.getElementById('empty-cart-txt').hidden = false;
                 }
             }
 
@@ -863,6 +886,11 @@ class Cart {
             if (emptyCartBtn !== null) {
                 emptyCartBtn.hidden = false;
             }
+            const total = document.getElementById('total');
+            if(total !== null) {
+                total.hidden = false;
+                document.getElementById('empty-cart-txt').hidden = true;
+            }
         }
 
 
@@ -888,6 +916,11 @@ class Cart {
             const emptyCartBtn = document.getElementById('empty-cart-btn');
             if (emptyCartBtn !== null) {
                 emptyCartBtn.hidden = true;
+            }
+            const total = document.getElementById('total');
+            if(total !== null) {
+                total.hidden = false;
+                document.getElementById('empty-cart-txt').hidden = true;
             }
         }
 
@@ -920,14 +953,17 @@ class Cart {
         const items = Cart.items.filter((value, index, arr) => {
             return value.amount !== 0;
         });
-
-        const createElementThreads = [];
-        for (let index = 0; index < items.length; index++) {
-            createElementThreads.push(items[index].createElement());
+        if (items.length !== 0) {
+            const createElementThreads = [];
+            for (let index = 0; index < items.length; index++) {
+                createElementThreads.push(items[index].createElement());
+            }
+            for (let index = 0; index < createElementThreads.length; index++) {
+                Promise.race(createElementThreads);
+            }
         }
-        for (let index = 0; index < createElementThreads.length; index++) {
-            Promise.race(createElementThreads);
-        }
+        
+        
     }
     // runs CartItem.createCheckoutElement() for all items in cart that have an amount larger than 0
     static async createCheckoutElements() {
