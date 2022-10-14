@@ -15,18 +15,17 @@ class Ware {
     // this array stores all the registered wares of the website 
     static registeredWares = [];
 
-    constructor(id, imageUrl, name, price, salePrice) {
+    constructor(id, imageUrl, name, price) {
         this.id = id;
         this.imageUrl = imageUrl;
         this.name = name;
         this.price = price;
-        this.salePrice = salePrice;
         this.cardContainer = null;
     }
     
     // creates Ware object and adds it to the registered wares array
-    static Register(imageUrl, name, price, salePrice) {
-        Ware.registeredWares.push(new Ware(Ware.registeredWares.length, imageUrl, name, price, salePrice));
+    static Register(imageUrl, name, price) {
+        Ware.registeredWares.push(new Ware(Ware.registeredWares.length, imageUrl, name, price));
     }
 
     // creates an html element of this specific ware
